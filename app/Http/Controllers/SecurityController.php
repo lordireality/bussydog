@@ -31,6 +31,8 @@ class SecurityController extends Controller
                 //--------------Start hash region--------------
                 $hashedPassword = hash('sha256',$inputData["password"].$inputData["email"]);
                 //---------------End hash region---------------
+
+                //BDOG-5: return only token and user id. Stop storing email and token in cookie/local storage
                 if(DB::table('user')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->exists()){
                     $authtoken = hash('sha256',date("ymdhis"));
                     DB::table('user')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->update(['authtoken' => $authtoken]);
@@ -49,6 +51,7 @@ class SecurityController extends Controller
             ];
             $validator = Validator::make($cookieInputData,$validRules);
             if($validator -> passes()){
+                //BDOG-4: Rewrite current auth token system to handle from auth table, with expiration date
                 if(DB::table('user')->SELECT('email')->WHERE([['email','=',$cookieInputData["email"]],['authtoken','=',$cookieInputData["authtoken"]]])->exists()){
                     return true;
                 } else {
