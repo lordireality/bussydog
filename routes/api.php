@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/Security/Auth', [App\Http\Controllers\SecurityController::class, 'Auth']);

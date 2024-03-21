@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*Приветственная страница */
 Route::get('/', function () {
     return view('welcome');
 });
+/*страница с ошибками (пустая)*/
+Route::get('/error',function () {
+    return view('error');
+})->name('error');
+
+
+
+/*Страница авторизации*/
+Route::get('/login', [App\Http\Controllers\SecurityController::class, 'LogOnPage'])->name('LogOnPage');
+
+
+/*Дебаг Layout-a */
+Route::get('/TEST/layout',function () {
+    return view('/templates/PageCoreWithoutAuth');
+})->name('layoutTest');

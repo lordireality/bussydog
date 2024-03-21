@@ -1,0 +1,34 @@
+.icon-button {
+    width: 1.1em;
+    height: 1.1em;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(61%) saturate(0%) hue-rotate(279deg) brightness(112%) contrast(101%);
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.icon-button.house,
+.icon-header.house{
+    background-image: url('../icon-pack/house-solid.svg');
+}
+.icon-button.list-check,
+.icon-header.list-check{
+    background-image: url('../icon-pack/list-check-solid.svg');
+}
+.icon-button.pen,
+.icon-header.pen{
+    background-image: url('../icon-pack/pen-solid.svg');
+}
+.icon-button.screwdriver-wrench,
+.icon-header.screwdriver-wrench{
+    background-image: url('../icon-pack/screwdriver-wrench-solid.svg');
+}
+.icon-button.right-from-bracket,
+.icon-header.right-from-bracket{
+    background-image: url('../icon-pack/right-from-bracket-solid.svg');
+}
+
+
+
+
+
+/* ../icon-pack/ .svg */

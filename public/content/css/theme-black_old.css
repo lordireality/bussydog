@@ -1,0 +1,90 @@
+header {
+	background-color: #242424;
+}
+header .menu{
+    background-color: #242424; 
+}
+.button2{
+    color: white;
+    background-color: #555555;
+}
+.button2:hover{
+    background-color: #6b6b6b;
+}
+.button1{
+    color: white;
+    background-color: #242424;;
+}
+.button1:hover{
+    background-color: #555555;
+}
+.button1long{
+    color: white;
+    background-color: #242424;;
+}
+.button1long:hover{
+    background-color: #555555;
+}
+.button2long{
+    color: white;
+    background-color: #555555;;
+}
+.button2long:hover{
+    background-color: #6b6b6b;
+}
+.task .answSelect{
+    color: white;
+    background-color: #242424;
+}
+.task .answSelect:hover{
+    background-color: #555555;
+}
+.task .selTask{
+    color: white;
+    background-color: #242424;
+}
+.task .selTask:hover{
+    background-color: #555555;
+}
+.task .taskSeparator{
+    color: white;
+    background-color: #555555;
+}
+.task .answRight{
+    background-color: #5cb85c;
+    transition: 0.3s;
+}
+.task .answWrong{
+    background-color: #d9534f;
+    transition: 0.3s;
+}
+.task .answUnknwn{
+    background-color: #c49403;
+    transition: 0.3s;
+}
+.task .answUnknwn:hover{
+    background-color: #856404;
+}
+.task .answRight:hover{
+    background-color: #6edf6e;
+}
+.task .answWrong:hover{
+    background-color: #f25b56;
+}
+.stopwatch{
+    color: white;
+    background-color: #242424;
+}
+.stopwatch:hover{
+    background-color: #555555;
+}
+
+.hypertextEditorToolbar{
+    background-color: #3f3f3f;
+}
+.hypertextEditorToolbar .tool{
+    background-color: #242424;
+}
+.hypertextEditorToolbar .tool:hover{
+    background-color: #555555;
+}

@@ -1,0 +1,41 @@
+header {
+	background-color: #1d6d9a;
+}
+header .menu{
+    background-color: #1d6d9a; 
+}
+.button2{
+    color: white;
+    background-color: #2689c2;
+}
+.button2:hover{
+    background-color: #a6c0cc;
+}
+.button1{
+    color: white;
+    background-color: #115884;;
+}
+.button1:hover{
+    background-color: #186ea3;;
+}
+.button1long{
+    color: white;
+    background-color: #115884;;
+}
+.button1long:hover{
+    background-color: #186ea3;;
+}
+.button2long{
+    color: white;
+    background-color: #2689c2;
+}
+.button2long:hover{
+    background-color: #a6c0cc;
+}
+.panel{
+    background-color: #1d6d9a;
+    color: white;
+}
+.container{
+    border: 3px solid #1d6d9a;
+}

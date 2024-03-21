@@ -1,0 +1,391 @@
+header
+{
+	background-color: #1d6d9a;
+}
+header .menu
+{
+	background-color: #1d6d9a;
+}
+.button2
+{
+	background-color: #2689c2;
+	color: #fff;
+}
+.button2:hover
+{
+	background-color: #a6c0cc;
+}
+.button1
+{
+	background-color: #115884;
+	color: #fff;
+}
+.button1:hover
+{
+	background-color: #186ea3;
+}
+.button1long
+{
+	background-color: #115884;
+	color: #fff;
+}
+.button1long:hover
+{
+	background-color: #186ea3;
+}
+.button2long
+{
+	background-color: #2689c2;
+	color: #fff;
+}
+.button2long:hover
+{
+	background-color: #a6c0cc;
+}
+.panel
+{
+	background-color: #1d6d9a;
+	color: white;
+}
+.container
+{
+	border: 3px solid #1d6d9a;
+}
+@font-face
+{
+	font-family: 'applestyled';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/apple.ttf');
+}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video
+{
+	border: 0;
+	font-family: 'applestyled';
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+html
+{
+	background-color: #f0f8ff;
+	text-align: center;
+}
+header
+{
+	display: inline-block;
+	height: auto;
+	margin-bottom: 5px;
+	text-align: left;
+	vertical-align: middle;
+	width: 100%;
+}
+header .logo
+{
+	margin: 140px;
+	text-decoration: none;
+}
+header h1
+{
+	color: #fff;
+	width: 25%;
+}
+header .menu
+{
+	display: inline-block;
+	height: auto;
+}
+header ul
+{
+	display: inline;
+}
+header li
+{
+	display: inline;
+}
+.welcome
+{
+	background-color: #1d6d9a;
+	color: white;
+}
+.editor
+{
+	font-family: system-ui!important;
+	height: 550px!important;
+	width: 100%!important;
+}
+.twoFAInputBox
+{
+	border: 1px #1d6d9a solid;
+	border-radius: 3px;
+	text-align: center;
+}
+.twoFAInputContainer
+{
+	margin-left: auto;
+	margin-right: auto;
+	moz-appearance: textfield;
+	text-align: center;
+	webkit-appearance: none;
+	width: auto;
+}
+.panel
+{
+	padding: 5px;
+	text-align: left;
+}
+.container
+{
+	background-color: #cfd8e0;
+}
+.widget
+{
+	display: inline-block;
+	margin-top: 2px;
+	padding: 5px;
+	vertical-align: top;
+	width: 48.9%;
+}
+.button2
+{
+	background-clip: border-box;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-shadow: 5px 5px 15px 0 rgba(0,0,0,0.75);
+	display: inline-block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 8px;
+	text-decoration: none;
+	transition: .3s;
+}
+.button2 *{
+	display: inline-block;
+}
+.button1
+{
+	background-clip: border-box;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-shadow: 5px 5px 15px 0 rgba(0,0,0,0.75);
+	display: inline-block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 8px;
+	text-decoration: none;
+	transition: .3s;
+}
+.button1long
+{
+	background-clip: border-box;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-shadow: 5px 5px 15px 0 rgba(0,0,0,0.75);
+	display: block;
+	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	padding: 8px;
+	text-align: left;
+	text-decoration: none;
+	transition: .3s;
+	width: 75%;
+}
+.button2long
+{
+	background-clip: border-box;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-shadow: 5px 5px 15px 0 rgba(0,0,0,0.75);
+	display: block;
+	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	padding: 8px;
+	text-align: left;
+	text-decoration: none;
+	transition: .3s;
+	width: 75%;
+}
+.bodysection
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	width: 75%;
+}
+hr
+{
+	width: 100%;
+}
+img
+{
+	width: 50%;
+}
+.loginBox
+{
+	background-color: #fff;
+	border: 1px solid #777;
+	border-radius: 8px;
+	color: #000;
+	display: block;
+	left: 25%;
+	padding: 5px;
+	position: absolute;
+	top: 25%;
+	width: 50%;
+}
+.loginBox .formTable
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+.historyelement
+{
+	background-color: #ffd9a4;
+	border: 1px solid #fff;
+	border-radius: 8px;
+	color: #000;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	padding: 5px;
+	text-align: left;
+}
+.historyelement_comment
+{
+	background-color: #fff;
+	border: 1px solid #777;
+	border-radius: 8px;
+	padding: 5px;
+}
+.popup
+{
+	background-color: #fff;
+	border: 2px solid #000;
+	border-radius: 8px;
+	display: none;
+	left: 50%;
+	padding: 5px;
+	position: fixed;
+	text-align: center;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	width: 50%;
+}
+.w-tooltip[data-descr]
+{
+	cursor: help;
+	position: relative;
+}
+.w-tooltip[data-descr]:hover::after,.w-tooltip[data-descr]:focus::after
+{
+	background-color: #ffd9a4;
+	border: 1px solid #777;
+	border-radius: 10px;
+	color: #000;
+	content: attr(data-descr);
+	min-width: 10px;
+	padding: 12px;
+	position: absolute;
+	text-align: left;
+	top: 24px;
+	z-index: 2;
+}
+.popupBlocker
+{
+	background-color: #000;
+	display: none;
+	height: 100%;
+	opacity: .7;
+	position: fixed;
+	transition: all 1s linear;
+	width: 100%;
+}
+.popup .popupHeader
+{
+	display: inline-block;
+}
+.paneltable
+{
+	border: 1px solid #000;
+	border-collapse: collapse;
+	width: 100%;
+}
+.paneltable td
+{
+	border: 1px solid #000;
+	padding: 2px;
+}
+.paneltable tr
+{
+	border: 1px solid black;
+}
+.paneltable th
+{
+	background-color: #1d6d9a;
+	border: 1px solid #000;
+	color: #fff;
+	padding: 2px;
+}
+.adminPanel
+{
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+.adminPanel .green
+{
+	background-color: #d2eab5;
+	display: inline-block;
+	margin: 10px;
+	padding: 5px;
+	vertical-align: top;
+	width: 45%;
+}
+.adminPanel h1
+{
+	text-align: left;
+}
+.admingPanel h3
+{
+	text-align: left;
+}
+
+.iframeSilent{
+	width:100%;
+	height: 600px;
+}
+
+@media(max-width:960px)
+{
+	header
+	{
+		text-align: center;
+		vertical-align: baseline;
+	}
+	header .logo
+	{
+		display: block;
+		margin: 5px;
+	}
+	header ul
+	{
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
+	.bodysection
+	{
+		width: 100%;
+	}
+	hr
+	{
+		width: 100%;
+	}
+	img
+	{
+		width: 75%;
+	}
+}
