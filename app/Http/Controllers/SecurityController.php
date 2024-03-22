@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 class SecurityController extends Controller
 {
@@ -25,23 +27,23 @@ class SecurityController extends Controller
                'password' => 'required|max:256'
             ];
             $validator = Validator::make($inputData,$validRules);
-            if($validator -> passes()){
-                //Тут вы можете установить свои параметры хэширования пароля
-                //Важно, что бы при создании учетной записи использовались аналогичные правила хэширования
-                //--------------Start hash region--------------
-                $hashedPassword = hash('sha256',$inputData["password"].$inputData["email"]);
-                //---------------End hash region---------------
-
-                //BDOG-5: return only token and user id. Stop storing email and token in cookie/local storage
-                if(DB::table('user')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->exists()){
-                    $authtoken = hash('sha256',date("ymdhis"));
-                    DB::table('user')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->update(['authtoken' => $authtoken]);
-                    return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "email"=>$inputData["email"]],200);
-                } else {
-                    return response() -> json(["status" => "401","message"=>"Неверный логин или пароль!"],401);
-                }
-            } else { return response() -> json(["status" => "422","message"=>$validator->messages()],422); }
+            if(!$validator -> passes()){
+                return response() -> json(["status" => "422","message"=>$validator->messages()],422);
+            }
+            $hashedPassword = hash('sha256',$inputData["password"].$inputData["email"]);
+            $userRecord = DB::table('user')->SELECT('id','isBlocked')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->first();
+            if($userRecord == null){
+                return response() -> json(["status" => "401","message"=>"Неверный логин или пароль!"],401);
+            }
+            if($userRecord->isBlocked == 1){
+                return response() -> json(["status" => "403","message"=>"Учетная запись заблокирована!"],401);
+            }
+            $authtoken = hash('sha256',date("ymdhis"));
+            //DB::table('user')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->update(['authtoken' => $authtoken]);
+            DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1)]);
+            return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "userid"=>$userRecord->id],200);
         }
+
         //Верификации текущей сессии
         function IsSessionAlive(Request $request){
             $cookieInputData = $request->cookie();
@@ -50,15 +52,9 @@ class SecurityController extends Controller
                 'authtoken' => 'required'
             ];
             $validator = Validator::make($cookieInputData,$validRules);
-            if($validator -> passes()){
-                //BDOG-4: Rewrite current auth token system to handle from auth table, with expiration date
-                if(DB::table('user')->SELECT('email')->WHERE([['email','=',$cookieInputData["email"]],['authtoken','=',$cookieInputData["authtoken"]]])->exists()){
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
+            if(!$validator -> passes()){
                 return false;
             }
+            return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()]])->exists();
         }
 }

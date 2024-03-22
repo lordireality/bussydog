@@ -79,7 +79,7 @@
                     if(validateEmail(email)){
                         try{
                             var xhr = new XMLHttpRequest();
-                            xhr.open("POST", window.location.origin+'/api/auth', true);
+                            xhr.open("POST", window.location.origin+'/api/Security/Auth', true);
                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             xhr.onreadystatechange = function() {
                                 if(this.readyState === XMLHttpRequest.DONE){ 
@@ -87,7 +87,7 @@
                                     jsonData = jsonData.replaceAll('/"','\\"');
                                     var AuthData = JSON.parse(jsonData);  
                                     if(AuthData["status"] == "200" ){
-                                        document.cookie = "email="+AuthData["email"]+"; path=/;";
+                                        document.cookie = "userid="+AuthData["userid"]+"; path=/;";
                                         document.cookie = "authtoken="+AuthData["authtoken"];+";path=/;";
                                         document.location.href = window.location.origin+"/index";
                                     } else {
