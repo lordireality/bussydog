@@ -11,7 +11,7 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <script type="text/javascript">
-            window.location = "{{ route('LogOnPage') }}";
+            //window.location = "{{ route('LogOnPage') }}";
         </script>
     </head>
     <body>
@@ -23,7 +23,7 @@
 @endphp
 @else
 @php
-    $sys_popups = [''];
+    $sys_popups = [];
     if(!isset($def_popups)){
         $def_popups = [];
     }
@@ -36,8 +36,8 @@
 		<link rel="icon" href="{{ asset('/content/images/favicon.ico') }}" type="image/x-icon">
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="./base.css">
-        <link rel="stylesheet" href="./base-blue.css">
+        <link rel="stylesheet" href="{{ asset('/content/css/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('/content/css/base-blue.css') }}">
 	</head>
     <body>
         @foreach($sys_popups as $popup)
@@ -48,7 +48,7 @@
         @endforeach
         <header>
             <div class="menu">
-                <a href="{{route('index')}}" class="logo"><img style="height:2em; width:2em; vertical-align:baseline;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/></a>
+                <a href="{{route('index')}}" class="logo"><img style="height:3em; width:3em; vertical-align:middle;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/></a>
                 <ul>
                     <li><a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 1</a></li>
                     <li> <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 2</a></li>

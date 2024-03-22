@@ -22,7 +22,7 @@ Route::get('/error',function () {
     return view('error');
 })->name('error');
 
-
+Route::get('/index', [App\Http\Controllers\UIPageController::class, 'LoadMainPage'])->name('index');
 
 /*Страница авторизации*/
 Route::get('/login', [App\Http\Controllers\SecurityController::class, 'LogOnPage'])->name('LogOnPage');

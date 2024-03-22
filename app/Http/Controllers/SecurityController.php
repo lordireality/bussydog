@@ -47,14 +47,14 @@ class SecurityController extends Controller
         function IsSessionAlive(Request $request){
             $cookieInputData = $request->cookie();
             $validRules = [
-                'userid' => 'required|Email|max:256',
+                'userid' => 'required|max:256',
                 'authtoken' => 'required'
             ];
             $validator = Validator::make($cookieInputData,$validRules);
             if(!$validator -> passes()){
                 return false;
             }
-            $userRecord = DB::table('user')->SELECT('isBlocked')->first();
+            $userRecord = DB::table('user')->SELECT('isBlocked')->where([['id','=',$cookieInputData["userid"]]])->first();
             if($userRecord == null){
                 return false;
             }
@@ -67,7 +67,7 @@ class SecurityController extends Controller
         function GetCurrentUser(Request $request){
             $cookieInputData = $request->cookie();
             $validRules = [
-                'userid' => 'required|Email|max:256',
+                'userid' => 'required|max:256',
                 'authtoken' => 'required'
             ];
             $validator = Validator::make($cookieInputData,$validRules);
