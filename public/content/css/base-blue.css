@@ -1,0 +1,120 @@
+html{
+    background-color: #f0f8ff;
+}
+
+header
+{
+	background-color: #1d6d9a;
+}
+header .menu
+{
+	background-color: #1d6d9a;
+}
+header .profile-info{
+	color: #fff;
+}
+.bodysection .lmenu{
+    border-top: 1px solid #a6c0cc;
+    background-color: #1d6d9a;
+}
+.button2
+{
+	background-color: #2689c2;
+	color: #fff;
+}
+.button2:hover
+{
+	background-color: #a6c0cc;
+}
+.button1
+{
+	background-color: #115884;
+	color: #fff;
+}
+.button1:hover
+{
+	background-color: #186ea3;
+}
+.button1long
+{
+	background-color: #115884;
+	color: #fff;
+}
+.button1long:hover
+{
+	background-color: #186ea3;
+}
+.button2long
+{
+	background-color: #2689c2;
+	color: #fff;
+}
+.button2long:hover
+{
+	background-color: #a6c0cc;
+}
+.panel
+{
+	background-color: #1d6d9a;
+	color: white;
+}
+.container
+{
+	border: 3px solid #1d6d9a;
+    background-color: #cfd8e0;
+}
+.welcome
+{
+	background-color: #1d6d9a;
+	color: white;
+}
+.loginBox
+{
+	background-color: #fff;
+	border: 1px solid #777;
+	color: #000;
+}
+.historyelement
+{
+	background-color: #ffd9a4;
+	border: 1px solid #fff;
+	color: #000;
+}
+.historyelement_comment
+{
+	background-color: #fff;
+	border: 1px solid #777;
+}
+.popup
+{
+	background-color: #fff;
+	border: 2px solid #000;
+}
+.popupBlocker
+{
+	background-color: #000;
+}
+.w-tooltip[data-descr]:hover::after,.w-tooltip[data-descr]:focus::after
+{
+	background-color: #ffd9a4;
+	border: 1px solid #777;
+	color: #000;
+}
+.paneltable
+{
+	border: 1px solid #000;
+}
+.paneltable td
+{
+	border: 1px solid #000;
+}
+.paneltable tr
+{
+	border: 1px solid black;
+}
+.paneltable th
+{
+	background-color: #1d6d9a;
+	border: 1px solid #000;
+	color: #fff;
+}

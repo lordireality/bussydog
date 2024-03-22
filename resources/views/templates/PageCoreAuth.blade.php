@@ -1,15 +1,14 @@
 @php
     use \App\Http\Controllers\SecurityController;
-    use \App\Http\Controllers\TasksController;
     $starttime = microtime(true); 
 @endphp
 @if(SecurityController::IsSessionAlive(app('request'))==false)
 <!doctype html>
 <html>
     <head>
-    <title>Не авторизован|ESE-CRM</title>
-		<link rel="icon" href="{{ asset('/ese/content/images/favicon.ico') }}" type="image/x-icon">
-		<meta name="description" content="ESE-CRM Leightweight OpenSource BPMN CRM"> 
+    <title>Не авторизован|{{config('app.name')}}</title>
+		<link rel="icon" href="{{ asset('/content/images/favicon.ico') }}" type="image/x-icon">
+		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <script type="text/javascript">
             window.location = "{{ route('LogOnPage') }}";
@@ -24,7 +23,7 @@
 @endphp
 @else
 @php
-    $sys_popups = ['ese.popup.user'];
+    $sys_popups = [''];
     if(!isset($def_popups)){
         $def_popups = [];
     }
@@ -35,20 +34,12 @@
 	<head>
 		<title>@yield('pagename')|{{config('app.name')}}</title>
 		<link rel="icon" href="{{ asset('/content/images/favicon.ico') }}" type="image/x-icon">
-		<meta name="description" content="ESE-CRM Leightweight OpenSource BPMN CRM"> 
+		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="{{ asset('/content/css/mainstyle.css') }}">
-        <link rel="stylesheet" href="{{ asset('/ese/content/css/icon-pack.css') }}">
-        
-        <script src="{{ asset('/content/js/popup.js') }}"></script>
-        <script src="{{ asset('/content/js/EseHTTP.js') }}"></script>
-        <script src="{{ asset('/content/js/logout.js') }}"></script>
-
+        <link rel="stylesheet" href="./base.css">
+        <link rel="stylesheet" href="./base-blue.css">
 	</head>
-
-
-	<body>
-        
+    <body>
         @foreach($sys_popups as $popup)
             @include($popup)
         @endforeach
@@ -57,30 +48,43 @@
         @endforeach
         <header>
             <div class="menu">
-                <a href="{{route('index')}}" class="logo"><h1 style="display: inline;">{{config('app.name')}} {{@config('app.EDITIONNAME')}}</h1><img style="height:2em; width:2em; vertical-align:baseline;" src="{{ asset('/ese/content/images/eseapplogotransparent.png') }}"/></a>
+                <a href="{{route('index')}}" class="logo"><img style="height:2em; width:2em; vertical-align:baseline;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/></a>
                 <ul>
-                    <li><a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Главная</a></li>
-                    <li><a class="button2" href="{{route('Tasks')}}"><p class="icon-button list-check"></p>Задачи[{{TasksController::ActiveTasksCount(app('request'))}}]</a></li> 
-
-                   
-                   <!-- <li><a class="button2" href="{{route('adminpanel')}}"><p class="icon-button screwdriver-wrench"></p>Админ-панель</a></li>-->
-                    <li><a class="button2" href="javascript:LogOut();"><p class="icon-button right-from-bracket"></p>Выйти</a></li>
+                    <li><a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 1</a></li>
+                    <li> <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 2</a></li>
+                    
                 </ul>
+                <div class="profile-info">
+                    <table>
+                        <tr>
+                        <td rowspan="2">Фото</td>
+                        <td>Тестовый Т.Т.</td>
+                        <td rowspan="2"><a style="color:white" href="javascript:LogOut()">Выход</a></td>
+                        </tr>
+                        <tr>
+                        <td><a style="color:white" href="#">Настройки</a></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </header>
         <section class="bodysection">
-            @yield('content')
+            <div class="lmenu">
+                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 1</a>
+                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 2</a>
+                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 3</a>
+            </div>
+            <div class="content">
+                @yield('content')
+                <hr>
+                <i style="text-align:right">
+                @php
+                    $endtime = microtime(true);
+                    @printf("%s v.%s - Страница загружена за %f секунд",config('app.name'), config('app.ver') ,$endtime - $starttime );
+                @endphp
+                </i>
+            </div>
         </section>
-
-        <footer>
-        <hr>
-        <i style="text-align:right">
-            @php
-            $endtime = microtime(true);
-            @printf("%s v.%s - Страница загружена за %f секунд",config('app.name'), config('app.ver') ,$endtime - $starttime );
-            @endphp
-        </i>
-        </footer>
 	</body>
 </html>
 @endif
