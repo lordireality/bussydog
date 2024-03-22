@@ -39,7 +39,6 @@ class SecurityController extends Controller
                 return response() -> json(["status" => "403","message"=>"Учетная запись заблокирована!"],401);
             }
             $authtoken = hash('sha256',date("ymdhis"));
-            //DB::table('user')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->update(['authtoken' => $authtoken]);
             DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1)]);
             return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "userid"=>$userRecord->id],200);
         }
@@ -48,13 +47,37 @@ class SecurityController extends Controller
         function IsSessionAlive(Request $request){
             $cookieInputData = $request->cookie();
             $validRules = [
-                'email' => 'required|Email|max:256',
+                'userid' => 'required|Email|max:256',
                 'authtoken' => 'required'
             ];
             $validator = Validator::make($cookieInputData,$validRules);
             if(!$validator -> passes()){
                 return false;
             }
+            $userRecord = DB::table('user')->SELECT('isBlocked')->first();
+            if($userRecord == null){
+                return false;
+            }
+            if($userRecord->isBlocked == 1){
+                return false;
+            }
             return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()]])->exists();
+        }
+
+        function GetCurrentUser(Request $request){
+            $cookieInputData = $request->cookie();
+            $validRules = [
+                'userid' => 'required|Email|max:256',
+                'authtoken' => 'required'
+            ];
+            $validator = Validator::make($cookieInputData,$validRules);
+            if(!$validator -> passes()){
+                return null;
+            }
+            $sessionData = DB::table('sys_authsessions')->SELECT('userid')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()]])->first();
+            if($sessionData == null){
+                return null;
+            }
+            return DB::table('user')->SELECT('id','login','firstname','middlename','lastname','email')->WHERE([['id','=',$sessionData->userid]])->first();
         }
 }
