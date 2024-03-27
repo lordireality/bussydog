@@ -80,4 +80,14 @@ class SecurityController extends Controller
             }
             return DB::table('user')->SELECT('id','login','firstname','middlename','lastname','email')->WHERE([['id','=',$sessionData->userid]])->first();
         }
+
+        function GetCurrentUserId(Request $request){
+            $user = app('App\Http\Controllers\SecurityController')->GetCurrentUser($request);
+            if($user == null){
+                return null;
+            } else {
+                return $user->id;
+            }
+        }
+
 }

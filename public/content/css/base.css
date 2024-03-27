@@ -96,13 +96,21 @@ header .profile-info td{
 {
 	
 }
-.widget
+.widget50
 {
 	display: inline-block;
 	margin-top: 2px;
 	padding: 5px;
 	vertical-align: top;
 	width: 48.9%;
+}
+.widget100
+{
+	display: inline-block;
+	margin-top: 2px;
+	padding: 5px;
+	vertical-align: top;
+	width: 98.8%;
 }
 .button2
 {
