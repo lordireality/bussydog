@@ -39,7 +39,7 @@ class SecurityController extends Controller
                 return response() -> json(["status" => "403","message"=>"Учетная запись заблокирована!"],401);
             }
             $authtoken = hash('sha256',date("ymdhis"));
-            DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1)]);
+            DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip()]);
             return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "userid"=>$userRecord->id],200);
         }
 
