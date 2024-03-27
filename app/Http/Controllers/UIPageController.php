@@ -9,13 +9,14 @@ class UIPageController extends Controller
     function LoadMainPage(Request $request){
         $currentuserId = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
         //Получаем виджеты
-        $widgetInfo = DB::table('sys_indexwidgets')->select(DB::raw("null as assembly"),'sys_uiwidget.visiblename','sys_indexwidgets.id','sys_indexwidgets.num','sys_indexwidgets.widgetSizeClass')->leftjoin('sys_uiwidget','sys_uiwidget.id', '=', 'sys_indexwidgets.widgetId')->where([['sys_indexwidgets.userId','=',$currentuserId],['sys_indexwidgets.num', '<>', '0']])->orderby('sys_indexwidgets.num', 'asc')->get();
+        $widgetInfo = DB::table('sys_indexwidgets')->select('sys_uiwidget.assembly','sys_indexwidgetsassembly.versionNumb','sys_uiwidget.visiblename','sys_indexwidgets.id','sys_indexwidgets.num','sys_indexwidgets.widgetSizeClass')->leftjoin('sys_uiwidget','sys_uiwidget.id', '=', 'sys_indexwidgets.widgetId')->leftjoin('sys_indexwidgetsassembly','sys_indexwidgetsassembly.widgetId', '=', 'sys_uiwidget.id')->where([['sys_indexwidgets.userId','=',$currentuserId],['sys_indexwidgets.num', '<>', '0'],[DB::raw("`sys_indexwidgetsassembly`.`id` = (SELECT max(`tmp`.`id`) FROM `sys_indexwidgetsassembly` as `tmp` WHERE `tmp`.`widgetId` = 1 and `tmp`.`isCurrent` = 1 LIMIT 1)")]])->orderby('sys_indexwidgets.num', 'asc')->get();
         $isEdit = false;
         if($request->has("isEdit")){
             $isEdit = (bool)$request->input()["isEdit"];
         } else {
             $isEdit = false;
         }
+        //dd($widgetInfo);
         return view('index')->with("widgetInfo",$widgetInfo)->with("isEdit",$isEdit);;
        // return view('/ese/mainpage')->with("widgetInfo",$widgetInfo)->with("isEdit",$isEdit);
     }
