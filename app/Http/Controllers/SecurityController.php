@@ -14,7 +14,7 @@ class SecurityController extends Controller
             if($this->IsSessionAlive($request) == true){
                 return redirect()->route('index');
             } else {
-                return view('/login');
+                return view('security.login');
             }
             
         }
