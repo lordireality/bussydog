@@ -11,7 +11,7 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <script type="text/javascript">
-            //window.location = "{{ route('LogOnPage') }}";
+            window.location = "{{ route('LogOnPage') }}";
         </script>
     </head>
     <body>
