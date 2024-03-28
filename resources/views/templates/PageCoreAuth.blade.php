@@ -27,7 +27,7 @@
 
     $currentUser = SecurityController::GetCurrentUser(app('request'));
     $currentInterface = UIPageController::GetInterface($currentUser->interface);
-    $interfaceButtons = null;
+    $interfaceButtons = UIPageController::GetInterfaceButtons($currentUser->interface);
     $sys_popups = [];
     if(!isset($def_popups)){
         $def_popups = [];
@@ -75,9 +75,9 @@
         </header>
         <section class="bodysection">
             <div class="lmenu">
-                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 1</a>
-                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 2</a>
-                <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Экшен кнопка 3</a>
+                @foreach($interfaceButtons as $button)
+                <a class="button2" href="{{route($button->path)}}">@if($button->buttonIcon != null)<p class="icon-button {{$button->buttonIcon}}"></p>@endif {{$button->buttonText}}</a>
+                @endforeach
             </div>
             <div class="content">
                 @yield('content')
