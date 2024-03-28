@@ -26,4 +26,9 @@ class UIPageController extends Controller
         return view('welcome');
     }
 
+    function GetInterface(int $id){
+        return DB::table('sys_interfaces')->where([['id','=',$id]])->get()->first();
+    }
+
+
 }

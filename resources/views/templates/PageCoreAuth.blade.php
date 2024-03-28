@@ -1,5 +1,6 @@
 @php
     use \App\Http\Controllers\SecurityController;
+    use \App\Http\Controllers\UIPageController;
     $starttime = microtime(true); 
 @endphp
 @if(SecurityController::IsSessionAlive(app('request'))==false)
@@ -23,6 +24,10 @@
 @endphp
 @else
 @php
+
+    $currentUser = SecurityController::GetCurrentUser(app('request'));
+    $currentInterface = UIPageController::GetInterface($currentUser->interface);
+    $interfaceButtons = null;
     $sys_popups = [];
     if(!isset($def_popups)){
         $def_popups = [];
@@ -37,7 +42,7 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <link rel="stylesheet" href="{{ asset('/content/css/base.css') }}">
-        <link rel="stylesheet" href="{{ asset('/content/css/base-blue.css') }}">
+        <link rel="stylesheet" href="{{ asset('/content/css/'.$currentInterface->csssheetname.'.css') }}">
 	</head>
     <body>
         @foreach($sys_popups as $popup)
@@ -58,7 +63,7 @@
                     <table>
                         <tr>
                         <td rowspan="2">Фото</td>
-                        <td>Тестовый Т.Т.</td>
+                        <td>{{$currentUser->lastname}} {{$currentUser->firstname[0].'.' ?? ''}}{{$currentUser->middlename[0].'.' ?? ''}}</td>
                         <td rowspan="2"><a style="color:white" href="javascript:LogOut()">Выход</a></td>
                         </tr>
                         <tr>
