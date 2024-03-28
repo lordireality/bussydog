@@ -5,7 +5,7 @@
 @section('content')
     @foreach($widgetInfo as $tmp)
             @if(!is_null($tmp->assembly) && !is_null($tmp->versionNumb))
-            @include('ese.UIWidget',['assembly'=>$tmp->assembly,'visiblename'=>$tmp->visiblename,'isEdit'=>$isEdit,'num'=>$tmp->num,'widgetSizeClass'=>$tmp->widgetSizeClass])
+            @include('templates.UIWidget',['assembly'=>$tmp->assembly.'_'.$tmp->versionNumb,'visiblename'=>$tmp->visiblename,'isEdit'=>$isEdit,'num'=>$tmp->num,'widgetSizeClass'=>$tmp->widgetSizeClass])
             @else
             <div class="{{$tmp->widgetSizeClass}}" id="EmptyWidgetPlaceholder">
                 @if(!is_null($tmp->assembly) && is_null($tmp->versionNumb))
