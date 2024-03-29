@@ -42,6 +42,7 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <link rel="stylesheet" href="{{ asset('/content/css/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('/content/css/icon-pack.css') }}">
         <link rel="stylesheet" href="{{ asset('/content/css/'.$currentInterface->csssheetname.'.css') }}">
 	</head>
     <body>
@@ -76,7 +77,7 @@
         <section class="bodysection">
             <div class="lmenu">
                 @foreach($interfaceButtons as $button)
-                <a class="button2" href="{{route($button->path)}}">@if($button->buttonIcon != null)<p class="icon-button {{$button->buttonIcon}}"></p>@endif {{$button->buttonText}}</a>
+                <a class="lbutton" href="{{route($button->path)}}">@if($button->buttonIcon != null)<p class="icon-lbutton {{$button->buttonIcon}}"></p>@endif {{$button->buttonText}}</a>
                 @endforeach
             </div>
             <div class="content">

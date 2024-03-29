@@ -6,7 +6,15 @@
     vertical-align: middle;
     margin-right: 2px;
 }
-.icon-button.house,
+.icon-lbutton{
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(61%) saturate(0%) hue-rotate(279deg) brightness(112%) contrast(101%);
+    margin-right: auto;
+    margin-left: auto;
+}
+.icon-button.house,.icon-lbutton.house,
 .icon-header.house{
     background-image: url('../icon-pack/house-solid.svg');
 }

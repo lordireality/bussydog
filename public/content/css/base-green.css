@@ -1,78 +1,78 @@
 html{
-    background-color: #f0f8ff;
+    background-color: #f2fff0;
 }
 
 header
 {
-	background-color: #1d6d9a;
+	background-color: #219a1d; 
 }
 header .menu
 {
-	background-color: #1d6d9a;
+	background-color: #219a1d;
 }
 header .profile-info{
 	color: #fff;
 }
 .bodysection .lmenu{
-    border-top: 1px solid #a6c0cc;
-    background-color: #1d6d9a;
+    border-top: 1px solid #a6cca9;
+    background-color: #219a1d;
 }
 .lbutton{
-	background-color: #2689c2;
+	background-color: #2ec226;
 	color: #fff;
 }
 .lbutton:hover{
-	background-color: #a6c0cc;
+	background-color: #a7cca6;
 }
 .button2
 {
-	background-color: #2689c2;
+	background-color: #2ec226;
 	color: #fff;
 }
 .button2:hover
 {
-	background-color: #a6c0cc;
+	background-color: #a7cca6;
 }
 .button1
 {
-	background-color: #115884;
+	background-color: #158411;
 	color: #fff;
 }
 .button1:hover
 {
-	background-color: #186ea3;
+	background-color: #18a31f;
 }
 .button1long
 {
-	background-color: #115884;
+	background-color: #11841b;
 	color: #fff;
 }
 .button1long:hover
 {
-	background-color: #186ea3;
+	background-color: #18a31d;
 }
 .button2long
 {
-	background-color: #2689c2;
+	background-color: #30c226;
 	color: #fff;
 }
 .button2long:hover
 {
-	background-color: #a6c0cc;
+	background-color: #a6ccaa;
 }
 .panel
 {
-	background-color: #1d6d9a;
+	background-color: #219a1d;
 	color: white;
 }
 .container
 {
-	border: 3px solid #1d6d9a;
+	border: 3px solid #219a1d;
     background-color: #cfd8e0;
 }
 .welcome
 {
-	background-color: #1d6d9a;
+	background-color: #219a1d;
 	color: white;
 }
 .loginBox
@@ -121,7 +121,7 @@ header .profile-info{
 }
 .paneltable th
 {
-	background-color: #1d6d9a;
+	background-color: #219a1d;
 	border: 1px solid #000;
 	color: #fff;
 }
