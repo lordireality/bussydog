@@ -61,7 +61,7 @@ class SecurityController extends Controller
             DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip()]);
             return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "userid"=>$userRecord->id],200);
         }
-
+        //API метод регистрации
         function Register(Request $request){
             $inputData = $request->input();
             if(config('app.registration') == false){
@@ -125,6 +125,7 @@ class SecurityController extends Controller
             return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()]])->exists();
         }
 
+        //Получить текущего пользователя как объект
         function GetCurrentUser(Request $request){
             $cookieInputData = $request->cookie();
             $validRules = [
@@ -142,6 +143,7 @@ class SecurityController extends Controller
             return DB::table('user')->SELECT('id','login','firstname','middlename','lastname','email','interface')->WHERE([['id','=',$sessionData->userid]])->first();
         }
 
+        //Получить id текущего пользователя
         function GetCurrentUserId(Request $request){
             $user = app('App\Http\Controllers\SecurityController')->GetCurrentUser($request);
             if($user == null){
@@ -149,6 +151,36 @@ class SecurityController extends Controller
             } else {
                 return $user->id;
             }
+        }
+
+        function VerifyAccount(Request $request){
+            $inputData = $request->input();
+            $validRules = [
+               'email' => 'required|Email|max:256',
+               'verificationToken' => 'required|max:256'
+            ];
+            $validator = Validator::make($inputData,$validRules);
+            if(!$validator -> passes()){
+                return view('error')->with(['stacktrace'=>$validator->messages()]);
+            } else {
+                if(DB::table('user')->where([['email','=',$inputData['email']],['verificationToken','=',$inputData['verificationToken']]])->exists()){
+                    DB::table('user')->where([['email','=',$inputData['email']],['verificationToken','=',$inputData['verificationToken']]])->update(['verified'=>1,'verificationToken'=>null]);
+                    return view('security.accountVerified');
+                } else {
+                    return view('error')->with(['stacktrace'=>'Не найдена учетная запись для подтверждения. Возможно учетная запись уже подтверждена?']);
+                }
+            }
+            /*
+                if(DB::table('users')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','=',1]])->exists()){
+                    DB::table('users')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','=',1]])->UPDATE(['usergroup'=>2]);
+                    return response() -> json(["status" => "200","apiprovider"=>"reshupdd.ru","message"=>"Ваш аккаунт успешно подтвержден!"],200);
+                }elseif(DB::table('users')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','!=',1]])->exists()){
+                    return response() -> json(["status" => "409","apiprovider"=>"reshupdd.ru","message"=>"Аккаунт уже подтвержден!"],409);
+                } 
+                else {
+                    return response() -> json(["status" => "401","apiprovider"=>"reshupdd.ru","message"=>"Неверный данные для подтверждения!"],401);
+                }
+            } else { return response() -> json(["status" => "422","apiprovider"=>"reshupdd.ru","message"=>$validator->messages()],422); }*/
         }
 
 }

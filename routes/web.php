@@ -29,6 +29,8 @@ Route::get('/login', [App\Http\Controllers\SecurityController::class, 'LogOnPage
 
 Route::get('/register', [App\Http\Controllers\SecurityController::class, 'RegisterPage'])->name('register');
 
+Route::get('/verify-account',[App\Http\Controllers\SecurityController::class,'VerifyAccount'])->name('verifyAccount');
+
 
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {
