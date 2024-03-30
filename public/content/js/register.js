@@ -56,6 +56,7 @@ function Register(){
                         document.location.href = window.location.origin+"/index";
                     } else {
                         alert("Необходимо подтверждение эл. почты. Проверьте указанный почтовый ящик.");
+                        document.location.href = window.location.origin+"/";
                     }
                 } 
                 else {
