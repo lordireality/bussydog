@@ -47,7 +47,7 @@ class SecurityController extends Controller
                 return response() -> json(["status" => "422","message"=>$validator->messages()],422);
             }
             $hashedPassword = hash('sha256',$inputData["password"].$inputData["email"]);
-            $userRecord = DB::table('user')->SELECT('id','isBlocked')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->first();
+            $userRecord = DB::table('user')->SELECT('id','isBlocked','verified')->WHERE([['email','=',$inputData["email"]],['passwordhash','=',$hashedPassword]])->first();
             if($userRecord == null){
                 return response() -> json(["status" => "401","message"=>"Неверный логин или пароль!"],401);
             }
@@ -170,17 +170,6 @@ class SecurityController extends Controller
                     return view('error')->with(['stacktrace'=>'Не найдена учетная запись для подтверждения. Возможно учетная запись уже подтверждена?']);
                 }
             }
-            /*
-                if(DB::table('users')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','=',1]])->exists()){
-                    DB::table('users')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','=',1]])->UPDATE(['usergroup'=>2]);
-                    return response() -> json(["status" => "200","apiprovider"=>"reshupdd.ru","message"=>"Ваш аккаунт успешно подтвержден!"],200);
-                }elseif(DB::table('users')->SELECT('email')->WHERE([['email','=',$inputData["email"]],['registertoken','=',$inputData["registertoken"]],['usergroup','!=',1]])->exists()){
-                    return response() -> json(["status" => "409","apiprovider"=>"reshupdd.ru","message"=>"Аккаунт уже подтвержден!"],409);
-                } 
-                else {
-                    return response() -> json(["status" => "401","apiprovider"=>"reshupdd.ru","message"=>"Неверный данные для подтверждения!"],401);
-                }
-            } else { return response() -> json(["status" => "422","apiprovider"=>"reshupdd.ru","message"=>$validator->messages()],422); }*/
         }
 
 }
