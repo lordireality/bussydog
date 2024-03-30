@@ -9,6 +9,8 @@ return [
 
     'registration' => env('APP_Registration', true),
 
+    'verificationrequired' => env('APP_VERIFICATIONREQUIRED', true),
+
     'EDITIONNAME' => env('APP_EDITIONNAME', 'Standart'),
 
     'env' => env('APP_ENV', 'production'),

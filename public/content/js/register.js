@@ -48,14 +48,16 @@ function Register(){
                 jsonData = xhr.responseText;
                 jsonData = jsonData.replaceAll('/"','\\"');
                 var AuthData = JSON.parse(jsonData);  
-                if(AuthData["status"] == "200" &&  AuthData["approveRequired"] == "false"){
-                    alert("Вы успешно зарегистрировались!");
-                    document.cookie = "userid="+AuthData["userid"]+"; path=/;";
-                    document.cookie = "authtoken="+AuthData["authtoken"];+";path=/;";
-                    document.location.href = window.location.origin+"/index";
-                } else if(AuthData["status"] == "200" &&  AuthData["approveRequired"] == "true"){
-                    alert("Необходимо подтверждение эл. почты. Проверьте указанный почтовый ящик.");
-                }
+                if(AuthData["status"] == "200"){
+                    if(AuthData["approveRequired"] == "false"){
+                        alert("Вы успешно зарегистрировались!");
+                        document.cookie = "userid="+AuthData["userid"]+"; path=/;";
+                        document.cookie = "authtoken="+AuthData["authtoken"];+";path=/;";
+                        document.location.href = window.location.origin+"/index";
+                    } else {
+                        alert("Необходимо подтверждение эл. почты. Проверьте указанный почтовый ящик.");
+                    }
+                } 
                 else {
                     try{
                         if(AuthData["message"] == "[object Object]"){
@@ -72,7 +74,7 @@ function Register(){
                 
         }
 
-        xhr.send("login="+login+"&email="+email+"&password="+password1+"&lastname="+lastname+"&firstname="+firstname+"$middlename="+midddlename);
+        xhr.send("login="+login+"&email="+email+"&password="+password1+"&lastname="+lastname+"&firstname="+firstname+"&middlename="+midddlename);
     }
     catch(err) {
         document.location.href = window.location.origin+"/error?stacktrace="+err;
