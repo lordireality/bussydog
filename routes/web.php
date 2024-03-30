@@ -27,6 +27,8 @@ Route::get('/index', [App\Http\Controllers\UIPageController::class, 'LoadMainPag
 /*Страница авторизации*/
 Route::get('/login', [App\Http\Controllers\SecurityController::class, 'LogOnPage'])->name('LogOnPage');
 
+Route::get('/register', [App\Http\Controllers\SecurityController::class, 'RegisterPage'])->name('register');
+
 
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="welcome">
 	<head>
-		<title>Добро пожаловать!|{!!config('app.name')!!}</title>
+		<title>Авторизация|{!!config('app.name')!!}</title>
 		<link rel="icon" href="{{ asset('/content/images/favicon.ico') }}" type="image/x-icon">
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
@@ -25,6 +25,10 @@
                     </tr>
                 </table>
                 <a class="button2" href="javascript:Auth()">Авторизоваться</a>
+                @if(config('app.registration') == true)
+                <a class="button2" href="{{route('register')}}">Зарегистрироваться</a>
+                @endif
+                
                 <hr>
                 <p>{!!config('app.name')!!} v.{!!config('app.ver')!!}</p>
             </div>

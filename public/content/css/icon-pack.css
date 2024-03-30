@@ -18,9 +18,13 @@
 .icon-header.house{
     background-image: url('../icon-pack/house-solid.svg');
 }
-.icon-button.list-check,
+.icon-button.list-check, .icon-lbutton.list-check,
 .icon-header.list-check{
     background-image: url('../icon-pack/list-check-solid.svg');
+}
+.icon-button.message, .icon-lbutton.message,
+.icon-header.message{
+    background-image: url('../icon-pack/message-solid.svg');
 }
 .icon-button.pen,
 .icon-header.pen{

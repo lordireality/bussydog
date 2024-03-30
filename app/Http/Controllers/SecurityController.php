@@ -15,9 +15,25 @@ class SecurityController extends Controller
                 return redirect()->route('index');
             } else {
                 return view('security.login');
-            }
-            
+            }   
         }
+
+        //Открытие страницы регистрации
+        function RegisterPage(Request $request){
+            if($this->IsSessionAlive($request) == true){
+                return redirect()->route('index');
+            } else {
+                if(config('app.registration') == false){
+                    return redirect()->route('login');
+                    
+                } else {
+                    return view('security.register');
+                }
+                
+
+            } 
+        }
+
     
         //API метод авторизации
         function Auth(Request $request){
