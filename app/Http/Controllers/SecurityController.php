@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Mail;
+use App\Mail\RegistrationMail;
 
 class SecurityController extends Controller
 {
@@ -94,7 +96,7 @@ class SecurityController extends Controller
             }
             $userRecord = DB::table('user')->insertGetId(['login'=>$inputData["login"],'firstname'=>$inputData["firstname"],'lastname'=>$inputData["lastname"],'middlename'=>isset($inputData["middlename"]) ? $inputData["middlename"] : null,'passwordhash'=>$hashedPassword,'email'=>$inputData["email"],'verified'=>$verified,'verificationToken'=>$verificationToken,'isBlocked' => 0]);
             if(config('app.verificationrequired')==true){
-                //TODO Send Email with verification
+                Mail::to($inputData['email'])->send(new RegistrationMail($inputData["firstname"], $verificationToken, $inputData["email"]));
                 return response() -> json(["status" => "200","message"=>"Вы успешно зарегистрировались!", "approveRequired"=>"true"],200);
             } else {
                 $authtoken = hash('sha256',date("ymdhis"));
