@@ -63,12 +63,12 @@
                 <div class="profile-info">
                     <table>
                         <tr>
-                        <td rowspan="2">Фото</td>
+                        <td rowspan="2"><a href="{{route('user',['id'=>'me'])}}"><img style="margin: 10px; border: 1px solid gray; border-radius: 128px; width:32px; height:32px;" src="{{$currentUser->photoBase64 ?? '/content/images/default.png'}}"></a></td>
                         <td>{{$currentUser->lastname}} {{$currentUser->firstname[0].'.' ?? ''}}{{$currentUser->middlename[0].'.' ?? ''}}</td>
-                        <td rowspan="2"><a style="color:white" href="javascript:LogOut()">Выход</a></td>
+                        
                         </tr>
                         <tr>
-                        <td><a style="color:white" href="#">Настройки</a></td>
+                        <td rowspan="2"><a style="color:white" href="javascript:LogOut()">Выйти</a></td>
                         </tr>
                     </table>
                 </div>
