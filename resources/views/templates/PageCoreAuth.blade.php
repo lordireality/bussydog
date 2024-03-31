@@ -64,7 +64,7 @@
                     <table>
                         <tr>
                         <td rowspan="2"><a href="{{route('user',['id'=>'me'])}}"><img style="margin: 10px; border: 1px solid gray; border-radius: 128px; width:32px; height:32px;" src="{{$currentUser->photoBase64 ?? '/content/images/default.png'}}"></a></td>
-                        <td>{{$currentUser->lastname}} {{$currentUser->firstname[0].'.' ?? ''}}{{$currentUser->middlename[0].'.' ?? ''}}</td>
+                        <td>{{$currentUser->lastname}} {{(mb_substr($currentUser->firstname, 0, 1) ?? '')}}{{(mb_substr($currentUser->middlename, 0, 1) ?? '')}}</td>
                         
                         </tr>
                         <tr>
