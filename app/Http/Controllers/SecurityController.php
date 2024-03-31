@@ -174,4 +174,18 @@ class SecurityController extends Controller
             }
         }
 
+        function UserProfile($id = null, Request $request){
+            $user = null;
+            if($id == 'me'){
+                $id = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
+            }
+            if(!DB::table('user')->where([['id','=',$id]])->exists()){
+                return 'notExists';
+            }
+            $user = DB::table('user')->where([['id','=',$id]])->first();
+           
+            return view('security.user')->with(['viewUser'=>$user]);
+        }
+
+
 }
