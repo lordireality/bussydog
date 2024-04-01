@@ -6,7 +6,8 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <link rel="stylesheet" href="{{ asset('/content/css/mainstyle.css') }}">
-        <script src="{{ asset('/content/js/register.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
 	<body>
         <div class="bodysection">
@@ -45,7 +46,7 @@
                     </tr>
 
                 </table>
-                <a class="button2" href="javascript:Register()">Зарегистрироваться</a>
+                <a class="button2" href="javascript:BussyDog.Security.Register()">Зарегистрироваться</a>
                 <br>
                 <b>Уже есть профиль?</b>
                 <a class="button2" href="{{route('LogOnPage')}}">Авторизоваться</a>

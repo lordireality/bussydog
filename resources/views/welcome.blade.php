@@ -1,9 +1,9 @@
 <!doctype html>
 <html class="welcome">
 	<head>
-		<title>Добро пожаловать!|BussyDog</title>
+		<title>Добро пожаловать!|{!!config('app.name')!!}</title>
 		<link rel="icon" href="{{ asset('/content/images/favicon.ico') }}" type="image/x-icon">
-		<meta name="description" content="BussyDog Leightweight OpenSource BPMN CRM"> 
+		<meta name="description" content="{!!config('app.name')!!} Leightweight OpenSource BPMN CRM"> 
 		<meta charset="utf-8">
         <!--mainstyle - Легаси файл содержащий некоторый набор готовых css к использованию компонентов.
         Рекомендуется преднастроить стиль и использовать его в связке с base.css
@@ -42,7 +42,7 @@
             <hr>
             <img style="height:25%; width:25%; vertical-align:baseline;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/>
             <br>
-            <h1>BussyDog - "Легкая бизнес система с открытым исходным кодом"</h1>
+            <h1>{!!config('app.name')!!} - "Легкая бизнес система с открытым исходным кодом"</h1>
             <h3>v. {{ config('app.ver') }}</h3>
             <hr>
             <h2>Это стартовая страница, доступная всем пользователям!</h2>

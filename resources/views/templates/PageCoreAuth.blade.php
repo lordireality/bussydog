@@ -44,6 +44,8 @@
         <link rel="stylesheet" href="{{ asset('/content/css/base.css') }}">
         <link rel="stylesheet" href="{{ asset('/content/css/icon-pack.css') }}">
         <link rel="stylesheet" href="{{ asset('/content/css/'.$currentInterface->csssheetname.'.css') }}">
+        <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
     <body>
         @foreach($sys_popups as $popup)
@@ -68,7 +70,7 @@
                         
                         </tr>
                         <tr>
-                        <td rowspan="2"><a style="color:white" href="javascript:LogOut()">Выйти</a></td>
+                        <td rowspan="2"><a style="color:white" href="javascript:BussyDog.Security.LogOut()">Выйти</a></td>
                         </tr>
                     </table>
                 </div>

@@ -6,7 +6,9 @@
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
         <link rel="stylesheet" href="{{ asset('/content/css/mainstyle.css') }}">
-        <script src="{{ asset('/content/js/auth.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
+        
 	</head>
 	<body>
         <div class="bodysection">
@@ -24,7 +26,7 @@
                         <td><input type="password" id="passwordField"></td>
                     </tr>
                 </table>
-                <a class="button2" href="javascript:Auth()">Авторизоваться</a>
+                <a class="button2" href="javascript:BussyDog.Security.Auth()">Авторизоваться</a>
                 @if(config('app.registration') == true)
                 <a class="button2" href="{{route('register')}}">Зарегистрироваться</a>
                 @endif
