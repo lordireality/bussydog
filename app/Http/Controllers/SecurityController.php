@@ -186,6 +186,26 @@ class SecurityController extends Controller
            
             return view('security.user')->with(['viewUser'=>$user]);
         }
+        
+        function GetAllPositions(Request $request){
+            return DB::table('sys_positions')->get();
+        }
 
+        function GetUserPositions($id = null){
+            if($id == null){
+                return null;
+            }
+            return DB::table('sys_positions')->where([['user','=',$id]])->get();
+        }
 
+        function GetCurrentUserPosition(Request $request){
+            $id = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
+            return app('App\Http\Controllers\SecurityController')->GetUserPositions($id);
+        }
+
+        function OrganizationPage(Request $request){
+            $positions = app('App\Http\Controllers\SecurityController')->GetAllPositions($request);
+            return view ('security.organization')->with(['positions'=>$positions]);
+
+        }
 }

@@ -41,4 +41,5 @@ class UIPageController extends Controller
         return view('templates.IconPack')->with("IconsData",File::glob('content/icon-pack/*'));
 
     }
+
 }
