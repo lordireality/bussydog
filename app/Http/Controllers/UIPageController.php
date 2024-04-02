@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class UIPageController extends Controller
 {
     function LoadMainPage(Request $request){
@@ -33,4 +36,9 @@ class UIPageController extends Controller
         return DB::table('sys_interface_buttons')->where([['interfaceid','=',$interfaceId]])->get();
     }
 
+    function IconPack(Request $request){
+        
+        return view('templates.IconPack')->with("IconsData",File::glob('content/icon-pack/*'));
+
+    }
 }

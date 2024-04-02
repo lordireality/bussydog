@@ -33,6 +33,9 @@ Route::get('/verify-account',[App\Http\Controllers\SecurityController::class,'Ve
 
 Route::get('/user/{id}',[App\Http\Controllers\SecurityController::class,'UserProfile'])->name('user');
 
+Route::get('/UI-IconPack/', [App\Http\Controllers\UIPageController::class, 'IconPack'])->name('IconPack');
+
+
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {
     return view('/templates/PageCoreWithoutAuth');
