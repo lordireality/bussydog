@@ -38,7 +38,7 @@ class UIPageController extends Controller
         return DB::table('sys_interfaces')->where([['id','=',$interfaceId]])->get()->first();
     }
     function GetInterfaceButtons(int $interfaceId){
-        return DB::table('sys_interface_buttons')->where([['interfaceid','=',$interfaceId]])->get();
+        return DB::table('sys_interface_buttons')->where([['interfaceid','=',$interfaceId],['num','<>','0']])->orderby('num')->get();
     }
 
     function IconPack(Request $request){
