@@ -4,9 +4,11 @@
 @section('pagename', 'Организация')
 
 @section('content')
+<div class="panel"><h1>Об организации:</h1></div>
+<?php include_once(resource_path()."/UIStaticPagesAssembly/organization.php") ?>
+<div class="panel"><h1>Организационная структура:</h1></div>
 <script src="{{ asset('/content/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/content/js/jquery.orgchart.js') }}"></script>
-<div class="panel"><h1>Организационная структура:</h1></div>
 <div id="chart-container"></div>
 
 <script>
@@ -18,7 +20,7 @@
         }
         return children.map(child => ({
             'name': child.name,
-            'title': child.name,
+            'title': ((child.lastname != null ? child.lastname : '') + (child.firstname != null ? child.firstname[0]+'.' : '')+(child.middlename != null ? child.middlename[0]+'.' : '')),
             'children': buildTree(data, child.id)
         }));
         }
@@ -42,7 +44,9 @@
 
     var oc = $('#chart-container').orgchart({
       'data' : OrganizationItemsTree[0],
-      'nodeContent': 'title'
+      'nodeContent': 'title',
+      'pan': true,
+	    'zoom': true
     });
 
   });
@@ -358,7 +362,6 @@
 
 .orgchart .node .edge {
   position: absolute;
-  cursor: default;
   transition: .2s;
 }
 
@@ -370,9 +373,6 @@
   display: none;
 }
 
-.orgchart .node .edge:hover {
-  cursor: pointer;
-}
 
 .orgchart .edge:hover::before {
   border-color: #449d44;

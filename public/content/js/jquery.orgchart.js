@@ -758,11 +758,11 @@
     },
     //
     switchVerticalArrow: function ($arrow) {
-      $arrow.toggleClass(`${this.options.icons.expandToUp} ${this.options.icons.collapseToDown}`);
+      //$arrow.toggleClass(`${this.options.icons.expandToUp} ${this.options.icons.collapseToDown}`);
     },
     //
     switchHorizontalArrow: function ($node) {
-      var opts = this.options;
+      /*var opts = this.options;
       if (opts.toggleSiblingsResp && (typeof opts.ajaxURL === 'undefined' || $node.closest('.nodes').data('siblingsLoaded'))) {
         var $prevSib = $node.parent().prev();
         if ($prevSib.length) {
@@ -785,7 +785,7 @@
         var sibsVisible = $sibs.length ? !$sibs.is('.hidden') : false;
         $node.children('.leftEdge').toggleClass(opts.icons.expandToRight, sibsVisible).toggleClass(opts.icons.collapseToLeft, !sibsVisible);
         $node.children('.rightEdge').toggleClass(opts.icons.collapseToLeft, sibsVisible).toggleClass(opts.icons.expandToRight, !sibsVisible);
-      }
+      }*/
     },
     //
     repaint: function (node) {
@@ -812,7 +812,7 @@
         var $rightEdge = $node.children('.rightEdge');
         var $bottomEdge = $node.children('.bottomEdge');
         var $leftEdge = $node.children('.leftEdge');
-        if (event.type === 'mouseenter') {
+        /*if (event.type === 'mouseenter') {
           if ($topEdge.length) {
             flag = this.getNodeState($node, 'parent').visible;
             $topEdge.toggleClass(this.options.icons.expandToUp, !flag).toggleClass(this.options.icons.collapseToDown, flag);
@@ -826,7 +826,7 @@
           }
         } else {
           $node.children('.edge').removeClass(`${this.options.icons.expandToUp} ${this.options.icons.collapseToDown} ${this.options.icons.collapseToLeft} ${this.options.icons.expandToRight}`);
-        }
+        }*/
       }
     },
     //
@@ -1395,13 +1395,13 @@
       }
 
       $nodeDiv.on('mouseenter mouseleave', this.nodeEnterLeaveHandler.bind(this));
-      $nodeDiv.on('click', this.nodeClickHandler.bind(this));
-      $nodeDiv.on('click', '.topEdge', this.topEdgeClickHandler.bind(this));
-      $nodeDiv.on('click', '.bottomEdge', this.bottomEdgeClickHandler.bind(this));
-      $nodeDiv.on('click', '.leftEdge, .rightEdge', this.hEdgeClickHandler.bind(this));
-      $nodeDiv.on('click', '.toggleBtn', this.toggleVNodes.bind(this));
-      $nodeDiv.on('click', '> .backToCompactSymbol',this.backToCompactHandler.bind(this));
-      $nodeDiv.on('click', '> .backToLooseSymbol',this.backToLooseHandler.bind(this));
+      //$nodeDiv.on('click', this.nodeClickHandler.bind(this));
+      //$nodeDiv.on('click', '.topEdge', this.topEdgeClickHandler.bind(this));
+      //$nodeDiv.on('click', '.bottomEdge', this.bottomEdgeClickHandler.bind(this));
+      //$nodeDiv.on('click', '.leftEdge, .rightEdge', this.hEdgeClickHandler.bind(this));
+      //$nodeDiv.on('click', '.toggleBtn', this.toggleVNodes.bind(this));
+      //$nodeDiv.on('click', '> .backToCompactSymbol',this.backToCompactHandler.bind(this));
+      //$nodeDiv.on('click', '> .backToLooseSymbol',this.backToLooseHandler.bind(this));
 
       if (opts.draggable) {
         this.bindDragDrop($nodeDiv);

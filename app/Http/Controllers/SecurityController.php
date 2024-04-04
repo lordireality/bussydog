@@ -190,7 +190,9 @@ class SecurityController extends Controller
         function GetAllPositions(Request $request){
             return DB::table('sys_positions')->get();
         }
-
+        function GetAllPositionsWithUsers(Request $request){
+            return DB::table('sys_positions')->select('sys_positions.id','name','parent','user','lastname','middlename','firstname')->leftjoin('user','user.id','=','sys_positions.user')->get();
+        }
         function GetUserPositions($id = null){
             if($id == null){
                 return null;
@@ -204,7 +206,7 @@ class SecurityController extends Controller
         }
 
         function OrganizationPage(Request $request){
-            $positions = app('App\Http\Controllers\SecurityController')->GetAllPositions($request);
+            $positions = app('App\Http\Controllers\SecurityController')->GetAllPositionsWithUsers($request);
             return view ('security.organization')->with(['positions'=>$positions]);
 
         }
