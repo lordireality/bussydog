@@ -26,7 +26,12 @@ class UIPageController extends Controller
     }
 
     function LoadWelcomePage(Request $request){
-        return view('welcome');
+        if(config('app.uselandingpage') == true){
+            return view('welcome');
+        }
+        else {
+            return redirect()->route('LogOnPage');
+        }
     }
 
     function GetInterface(int $interfaceId){

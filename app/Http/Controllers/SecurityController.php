@@ -207,7 +207,9 @@ class SecurityController extends Controller
 
         function OrganizationPage(Request $request){
             $positions = app('App\Http\Controllers\SecurityController')->GetAllPositionsWithUsers($request);
-            return view ('security.organization')->with(['positions'=>$positions]);
+            $birthdays = DB::table('user')->select('firstname', 'middlename', 'lastname', DB::Raw('DATE_FORMAT(birthday, \'%d.%m\') as birthday'), 'photoBase64')->whereRaw("DATE_FORMAT(birthday, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d')")->whereRaw("DATE_FORMAT(birthday, '%m-%d') <= DATE_FORMAT(NOW() + INTERVAL 14 DAY, '%m-%d')")->orderByRaw("DATE_FORMAT(birthday, '%m-%d')")->get();
+            $inCompanyFrom = DB::table('user')->select('firstname','middlename','lastname','inCompanyFrom','photoBase64')->where([['inCompanyFrom','>',Now()->addDays(-14)]])->orderby('inCompanyFrom')->get();
+            return view ('security.organization')->with(['positions'=>$positions,'birthdays'=>$birthdays,'inCompanyFrom'=>$inCompanyFrom]);
 
         }
 }

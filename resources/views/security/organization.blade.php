@@ -4,12 +4,42 @@
 @section('pagename', 'Организация')
 
 @section('content')
-<div class="panel"><h1>Об организации:</h1></div>
+<div class="panel"><h1>{{config('app.organizationname')}}</h1></div>
 <?php include_once(resource_path()."/UIStaticPagesAssembly/organization.php") ?>
 <div class="panel"><h1>Организационная структура:</h1></div>
 <script src="{{ asset('/content/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/content/js/jquery.orgchart.js') }}"></script>
 <div id="chart-container"></div>
+<div class="panel"><h1>Дни рождения:</h1></div>
+<div>
+  @if(count($birthdays) != 0)
+    @foreach($birthdays as $bday)
+    <div style="width:13em; display:inline-block; border: 1px solid gray; margin: 5px;">
+      <img style="margin: 10px; border: 1px solid gray; border-radius: 128px; width:7.5em; height:7.5em;" src="{{$bday->photoBase64 ?? '/content/images/default.png'}}">
+      <hr>
+      <h2>{{$bday->lastname}} {{(mb_substr($bday->firstname, 0, 1) ?? '')}}{{(mb_substr($bday->middlename, 0, 1) ?? '')}}</h2>
+      <h3>{{$bday->birthday}}</h3>  
+    </div>
+    @endforeach
+  @else 
+  <h1>Нет дней рождений в ближайшие 14 дней</h1>
+  @endif
+</div>
+<div class="panel"><h1>Новые сотрудники за последние 14 дней:</h1></div>
+<div>
+  @if(count($inCompanyFrom) != 0)
+    @foreach($inCompanyFrom as $icf)
+    <div style="width:13em; display:inline-block; border: 1px solid gray; margin: 5px;">
+      <img style="margin: 10px; border: 1px solid gray; border-radius: 128px; width:7.5em; height:7.5em;" src="{{$bday->photoBase64 ?? '/content/images/default.png'}}">
+      <hr>
+      <h2>{{$icf->lastname}} {{(mb_substr($icf->firstname, 0, 1) ?? '')}}{{(mb_substr($icf->middlename, 0, 1) ?? '')}}</h2>
+      <h3>{{$icf->inCompanyFrom}}</h3>  
+    </div>
+    @endforeach
+  @else 
+  <h1>Нет новых сотрудников</h1>
+  @endif
+</div>
 
 <script>
     data = {!!$positions!!};

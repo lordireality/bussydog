@@ -13,6 +13,10 @@ return [
 
     'EDITIONNAME' => env('APP_EDITIONNAME', 'Standart'),
 
+    'uselanding' => env('APP_USELANDING', true),
+
+    'organizationname' => env('APP_ORGANIZATIONNAME', 'ООО Контора'),
+
     'env' => env('APP_ENV', 'production'),
 
     'debug' => (bool) env('APP_DEBUG', false),

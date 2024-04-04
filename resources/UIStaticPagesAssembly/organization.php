@@ -1,1 +1,1 @@
-<h1>lalalala</h1>
+<p>Это блок описания Вашей компании. Вы можете настроить его в администрировании, либо отредактировав в /resources/UIStaticPagesAssembly/organization.php</p>
