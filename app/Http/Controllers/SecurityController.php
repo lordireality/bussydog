@@ -60,7 +60,7 @@ class SecurityController extends Controller
                 return response() -> json(["status" => "403","message"=>"Учетная запись заблокирована!"],401);
             }
             $authtoken = hash('sha256',date("ymdhis"));
-            DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip()]);
+            DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord->id,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip(),'isTerminated'=>0]);
             return response() -> json(["status" => "200","message"=>"Вы успешно авторизовались!", "authtoken"=>$authtoken, "userid"=>$userRecord->id],200);
         }
         //API метод регистрации
@@ -100,7 +100,7 @@ class SecurityController extends Controller
                 return response() -> json(["status" => "200","message"=>"Вы успешно зарегистрировались!", "approveRequired"=>"true"],200);
             } else {
                 $authtoken = hash('sha256',date("ymdhis"));
-                DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip()]);
+                DB::table('sys_authsessions')->INSERT(['userid'=>$userRecord,'authToken'=>$authtoken,'expiresAt'=>Now()->addHours(1),'useragent'=>$request->server('HTTP_USER_AGENT'),'ipAddr'=>$request->ip(), 'isTerminated'=>0]);
                 return response() -> json(["status" => "200","message"=>"Вы успешно зарегистрировались!", "approveRequired"=>"false","authtoken"=>$authtoken, "userid"=>$userRecord],200);
             }
         }
@@ -124,8 +124,28 @@ class SecurityController extends Controller
             if($userRecord->isBlocked == 1){
                 return false;
             }
-            return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()]])->exists();
+            return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$cookieInputData["userid"]],['authtoken','=',$cookieInputData["authtoken"]],['expiresAt','>',Now()],['isTerminated','=',0]])->exists();
         }
+
+        //Прервать текущую сессию/LogOut
+        //Возвращает true/false в зависимости от успешности операции
+        function LogOut(Request $request){
+            $inputData = $request->input();
+            $validRules = [
+                'userid' => 'required|max:256',
+                'authtoken' => 'required'
+            ];
+            $validator = Validator::make($inputData,$validRules);
+            if(!$validator -> passes()){
+                return false;
+            }
+            $affected = DB::table('sys_authsessions')->WHERE([['userid','=',$inputData["userid"]],['authtoken','=',$inputData["authtoken"]],['expiresAt','>',Now()],['isTerminated','=',0]])->update(['isTerminated'=>1]);
+            
+            return !($affected == 0);
+        }
+        
+        //Прервать все текущие сессии
+
 
         //Получить текущего пользователя как объект
         function GetCurrentUser(Request $request){

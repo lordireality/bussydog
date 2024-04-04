@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/Security/Auth', [App\Http\Controllers\SecurityController::class, 'Auth']);
 Route::post('/Security/Register', [App\Http\Controllers\SecurityController::class, 'Register']);
+Route::post('/Security/LogOut', [App\Http\Controllers\SecurityController::class, 'LogOut']);
+
 Route::get('/Messages/GetDialogues', [App\Http\Controllers\MessageController::class, 'GetMyDialogues']);
 Route::get('/Messages/GetDialogueMessages', [App\Http\Controllers\MessageController::class, 'GetDialogueMessages']);
 

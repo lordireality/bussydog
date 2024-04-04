@@ -3,10 +3,45 @@ class BussyDogSecurity{
         return this;
     }
     LogOut(){
-        document.cookie = "email=; path=/;";
-        document.cookie = "authtoken=; path=/;";
-        document.location.href = window.location.origin+"/login";
+        var userid = this.getCookie('userid');
+        var authtoken = this.getCookie('authtoken');
+        if(userid && authtoken){
+            try{
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", window.location.origin+'/api/Security/LogOut', true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if(this.readyState === XMLHttpRequest.DONE){ 
+                        var resp = xhr.responseText;
+                        if(resp == 1){
+                            console.log("Сессия прервана");
+                        }else {
+                            console.log("Сессия не прервана");
+                        }
+                        
+                        document.cookie = "userid=; path=/;";
+                        document.cookie = "authtoken=; path=/;";
+                        document.location.href = window.location.origin+"/login";                        
+                    }
+                }
+                xhr.send("userid="+userid+"&authtoken="+authtoken);
+            }
+            catch(err) {
+                document.location.href = window.location.origin+"/error?stacktrace="+err;
+            }
+        } else {
+            console.error('Нет сессии в Cookie!');
+            document.cookie = "userid=; path=/;";
+            document.cookie = "authtoken=; path=/;";
+            document.location.href = window.location.origin+"/login";
+        }
     }
+
+    getCookie = function(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+    }
+
     Auth(){
         var email = document.getElementById('emailField').value;
         var password = document.getElementById('passwordField').value;
