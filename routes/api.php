@@ -21,4 +21,4 @@ Route::post('/Security/LogOut', [App\Http\Controllers\SecurityController::class,
 Route::get('/Messages/GetDialogues', [App\Http\Controllers\MessageController::class, 'GetMyDialogues']);
 Route::get('/Messages/GetDialogueMessages', [App\Http\Controllers\MessageController::class, 'GetDialogueMessages']);
 
-
+Route::get('/Wiki/Search',[App\Http\Controllers\WikiController::class , 'ArticleSearch']);

@@ -96,14 +96,13 @@
         </header>
         <section class="bodysection">
             <div class="lmenu" style="width: 250px !important; text-align:left !important;">
-                <input type="text" id="search" style="width:245px">
-                
+                <a style="color:white;" href="{{route('wiki')}}">Главная</a>
                 <ul class="listree" style="color:white;">
                     {!!$articleStructure!!}
                 </ul>
             </div>
             <script>
-                listree()();
+                listree();
             </script>
             <div class="content" style="width: calc(97vw - 250px);">
                 @yield('content')

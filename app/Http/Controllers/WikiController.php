@@ -41,4 +41,14 @@ class WikiController extends Controller
         return $structurewitharticle;
         
     }
+
+    function ArticleSearch(Request $request){
+        $isAlive = app('App\Http\Controllers\SecurityController')->IsSessionAlive($request);
+        if($isAlive == false ){
+            return [];
+        }
+        
+        return json_encode(DB::table('sys_wikiarticle')->select('id','name')->where([['name','like','%'.$request->get('query').'%']])->get());
+
+    }
 }
