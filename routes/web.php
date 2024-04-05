@@ -37,6 +37,9 @@ Route::get('/UI-IconPack', [App\Http\Controllers\UIPageController::class, 'IconP
 
 Route::get('/organization',[App\Http\Controllers\SecurityController::class,'OrganizationPage'])->name('OrganizationPage');
 
+Route::get('/wiki',[App\Http\Controllers\WikiController::class,'Index'])->name('wiki');
+
+
 
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {
