@@ -33,10 +33,17 @@
         }
         foreach ($data as $row) {
             if ($row->parent == $parentId) {
-                $result .= '<li>';
-                $result .= '<div class="listree-submenu-heading">' . $row->name . '</div>';
-                $result .= buildTree($data, $row->id);
-                $result .= '</li>';
+                if($row->isArticle == 0){
+                    $result .= '<li>';
+                    $result .= '<div class="listree-submenu-heading">' . $row->name . '</div>';
+                    $result .= buildTree($data, $row->id);
+                    $result .= '</li>';
+                } else {
+                    $result .= '<li>';
+                    $result .= '<a style="color:white;" href="'.route('wiki-article',['articleid'=>$row->id]).'">'.$row->name .'</a>';
+                    $result .= '</li>';
+                }
+                
             }
         }
         if($parentId != null){
@@ -105,32 +112,6 @@
                 
                 <ul class="listree" style="color:white;">
                     {!!$articleStructure!!}
-                    <!--<li>
-                        <div class="listree-submenu-heading">Item 1</div>
-                        <ul class="listree-submenu-items">
-                        <li>
-                            <div class="listree-submenu-heading">Item 1-1</div>
-                            <ul class="listree-submenu-items">
-                                <li>
-                                <div class="listree-submenu-heading">Item 1-1-1</div>
-                                    <ul class="listree-submenu-items">
-                                    <li>
-                                        <div class="listree-submenu-heading">Item 1-1-1-1</div>
-                                        <ul class="listree-submenu-items">
-                                        <li>
-                                            <a href="">Item 1-1-1-1-1</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Item 1-1-1-1-2</a>
-                                        </li>
-                                        </ul>
-                                    </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        </ul>
-                    </li>-->
                 </ul>
             </div>
             <script>

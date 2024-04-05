@@ -15,6 +15,7 @@ class WikiController extends Controller
 
     function ViewArticle(int $articleid = 0,Request $request){
         //todo perm check
+        return view('wiki.article');
     }
 
     function EditArticle(Request $request){
@@ -26,6 +27,9 @@ class WikiController extends Controller
     }
 
     function GetAllStructure(Request $request){
-        return DB::table('sys_wikistructure')->get();
+        $structure = DB::table('sys_wikistructure')->select('id','name','parent',DB::Raw('false as isArticle'));
+        $structurewitharticle = DB::table('sys_wikiarticle')->select('id','name','parent',DB::Raw('true as isArticle'))->union($structure)->get();
+        return $structurewitharticle;
+        
     }
 }

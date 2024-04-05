@@ -39,6 +39,8 @@ Route::get('/organization',[App\Http\Controllers\SecurityController::class,'Orga
 
 Route::get('/wiki',[App\Http\Controllers\WikiController::class,'Index'])->name('wiki');
 
+Route::get('/wiki-article/{articleid}',[App\Http\Controllers\WikiController::class,'ViewArticle'])->name('wiki-article');
+
 
 
 /*Дебаг Layout-a */
