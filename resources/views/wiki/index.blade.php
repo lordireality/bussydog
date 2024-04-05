@@ -23,34 +23,25 @@
         var articleViewAddr = '{{route('wiki-article',['articleid'=>122334455])}}'.replace("122334455", ''); //Костыль для построения роутинга
         var placeholder = document.getElementById("searchResults");
         placeholder.innerHTML = null;
-        var userid = BussyDog.Security.getCookie('userid');
-        var authtoken = BussyDog.Security.getCookie('authtoken');
         
-        if(userid && authtoken){
-            try{
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", window.location.origin+'/api/Wiki/Search?query='+query, true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function() {
-                    if(this.readyState === XMLHttpRequest.DONE){ 
-                        placeholder.innerHTML = null; //Костыль если много запросов ушло на сервер
-                        var resp = xhr.responseText;
-                        var jsonOBJ = JSON.parse(resp);                  
-                        for(var i in jsonOBJ){
-                            placeholder.innerHTML += '<a href="'+articleViewAddr+jsonOBJ[i].id+'"><h3 style="color:black;">'+jsonOBJ[i].name+'</h3></a><hr>'
-                        }        
-                    }
+        try{
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", window.location.origin+'/api/Wiki/Search?query='+query, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if(this.readyState === XMLHttpRequest.DONE){ 
+                    placeholder.innerHTML = null; //Костыль если много запросов ушло на сервер
+                    var resp = xhr.responseText;
+                    var jsonOBJ = JSON.parse(resp);                  
+                    for(var i in jsonOBJ){
+                        placeholder.innerHTML += '<a href="'+articleViewAddr+jsonOBJ[i].id+'"><h3 style="color:black;">'+jsonOBJ[i].name+'</h3></a><hr>'
+                    }        
                 }
-                xhr.send();
             }
-            catch(err) {
-                document.location.href = window.location.origin+"/error?stacktrace="+err;
-            }
-        } else {
-            console.error('Нет сессии в Cookie!');
-            document.cookie = "userid=; path=/;";
-            document.cookie = "authtoken=; path=/;";
-            document.location.href = window.location.origin+"/login";
+            xhr.send();
+        }
+        catch(err) {
+            document.location.href = window.location.origin+"/error?stacktrace="+err;
         }
     }
 </script>
