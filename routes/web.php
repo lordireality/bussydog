@@ -41,7 +41,7 @@ Route::get('/wiki',[App\Http\Controllers\WikiController::class,'Index'])->name('
 
 Route::get('/wiki-article/{articleid}',[App\Http\Controllers\WikiController::class,'ViewArticle'])->name('wiki-article');
 
-
+Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController::class,'EditArticle'])->name('wiki-article-edit');
 
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {

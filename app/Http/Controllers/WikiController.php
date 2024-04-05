@@ -15,11 +15,20 @@ class WikiController extends Controller
 
     function ViewArticle(int $articleid = 0,Request $request){
         //todo perm check
-        return view('wiki.article');
+        $article = DB::table('sys_wikiarticle')->where([['id','=',$articleid]])->first();
+        if($article == null){
+            return view('wiki.error')->with(['stacktrace'=>'Статья с идентификатором '.$articleid.' не найдена']);
+        }
+        return view('wiki.article')->with(['article'=>$article]);
     }
 
-    function EditArticle(Request $request){
+    function EditArticle(int $articleid = 0, Request $request){
         //todo perm check
+        $article = DB::table('sys_wikiarticle')->where([['id','=',$articleid]])->first();
+        if($article == null){
+            return view('wiki.error')->with(['stacktrace'=>'Статья с идентификатором '.$articleid.' не найдена']);
+        }
+        return view('wiki.editor')->with(['article'=>$article]);
     }
     //API
     function SaveArticle(Request $request){
