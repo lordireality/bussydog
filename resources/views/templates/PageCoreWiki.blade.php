@@ -55,12 +55,6 @@
     $articleStructure =  buildTree(json_decode(WikiController::GetAllStructure(app('request'))),null);
     $currentUser = SecurityController::GetCurrentUser(app('request'));
     $currentInterface = UIPageController::GetInterface($currentUser->interface);
-    $interfaceButtons = UIPageController::GetInterfaceButtons($currentUser->interface);
-    $sys_popups = [];
-    if(!isset($def_popups)){
-        $def_popups = [];
-    }
-    /* ['ese.popup.user','ese.popup.addcomment','ese.popup.processdiagram','ese.popup.changeexecutor','ese.popup.processdiagram','ese.popup.createtask','ese.popup.createsubtask','ese.popup.changeexecutor','ese.popup.addwidget','ese.popup.2faSubmit']*/
 @endphp
 <!doctype html>
 <html>
@@ -78,12 +72,6 @@
         <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
     <body>
-        @foreach($sys_popups as $popup)
-            @include($popup)
-        @endforeach
-        @foreach($def_popups as $popup)
-            @include($popup)
-        @endforeach
         <header>
             <div class="menu">
                 <a href="{{route('index')}}" class="logo" style="margin:115px !important;"><img style="height:3em; width:3em; vertical-align:middle;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/></a>
