@@ -105,26 +105,6 @@ class SecurityController extends Controller
             }
         }
         
-        function IsSessionAliveRequest(Request $request){
-            $inputData = $request->input();
-            $validRules = [
-                'userid' => 'required|max:256',
-                'authtoken' => 'required'
-            ];
-            $validator = Validator::make($inputData,$validRules);
-            if(!$validator -> passes()){
-                return false;
-            }
-            $userRecord = DB::table('user')->SELECT('isBlocked')->where([['id','=',$inputData["userid"]]])->first();
-            if($userRecord == null){
-                return false;
-            }
-            if($userRecord->isBlocked == 1){
-                return false;
-            }
-            return DB::table('sys_authsessions')->SELECT('id')->WHERE([['userid','=',$inputData["userid"]],['authtoken','=',$inputData["authtoken"]],['expiresAt','>',Now()],['isTerminated','=',0]])->exists();
-        }
-
         //Верификации текущей сессии
         function IsSessionAlive(Request $request){
             $cookieInputData = $request->cookie();
