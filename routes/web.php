@@ -27,8 +27,6 @@ Route::get('/index', [App\Http\Controllers\UIPageController::class, 'LoadMainPag
 /*Страница авторизации*/
 Route::get('/login', [App\Http\Controllers\SecurityController::class, 'LogOnPage'])->name('LogOnPage');
 
-Route::get('/CheckCurrentUserPrivelege/{keyname}', [App\Http\Controllers\SecurityController::class, 'CheckCurrentUserPrivelege'])->name('CheckCurrentUserPrivelege');
-
 Route::get('/register', [App\Http\Controllers\SecurityController::class, 'RegisterPage'])->name('register');
 
 Route::get('/verify-account',[App\Http\Controllers\SecurityController::class,'VerifyAccount'])->name('verifyAccount');
@@ -48,6 +46,6 @@ Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController
 Route::get('/wiki-article/create',[App\Http\Controllers\WikiController::class,'CreateArticle'])->name('wiki-article-create');
 
 /*Дебаг Layout-a */
-Route::get('/TEST/layout',function () {
+/*Route::get('/TEST/layout',function () {
     return view('/templates/PageCoreWithoutAuth');
-})->name('layoutTest');
+})->name('layoutTest');*/
