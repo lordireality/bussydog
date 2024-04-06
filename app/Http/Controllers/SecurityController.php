@@ -37,14 +37,24 @@ class SecurityController extends Controller
         }
 
         function CheckCurrentUserPrivelege(Request $request, $keyname){
-            $privilege = DB::table('sys_privilege')->where([['keyname','=',$keyname]])->first();
-            if($privilege == null){
-                return false;
-            }
             $userId = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
             if($userId == null){
                 return false;
             }
+
+            $allPrivelege = DB::table('sys_privilege')->where([['keyname','=','all']])->first();
+            if($allPrivelege != null){
+                $allPrivelegeGroup = DB::table('sys_usergroup_privelege')->select('sys_usergroup_privelege.id')->where([['privilege','=',$allPrivelege->id],['sys_usergroup_user.user','=',$userId]])->join('sys_usergroup_user','sys_usergroup_user.usergroup','sys_usergroup_privelege.usergroup')->get();
+                $allPrivelegePositions = DB::table('sys_usergroup_privelege')->select('sys_usergroup_privelege.id')->where([['privilege','=',$allPrivelege->id],['sys_positions.user','=',$userId]])->join('sys_usergroup_positions','sys_usergroup_positions.usergroup','sys_usergroup_privelege.usergroup')->join('sys_positions','sys_usergroup_positions.position','sys_positions.id')->get();
+                if(count($allPrivelegeGroup) != 0 || count($allPrivelegePositions) != 0){
+                    return true;
+                }
+            }
+            $privilege = DB::table('sys_privilege')->where([['keyname','=',$keyname]])->first();
+            if($privilege == null){
+                return false;
+            }
+            
 
             $group = DB::table('sys_usergroup_privelege')->select('sys_usergroup_privelege.id')->where([['privilege','=',$privilege->id],['sys_usergroup_user.user','=',$userId]])->join('sys_usergroup_user','sys_usergroup_user.usergroup','sys_usergroup_privelege.usergroup')->get();
             $positions = DB::table('sys_usergroup_privelege')->select('sys_usergroup_privelege.id')->where([['privilege','=',$privilege->id],['sys_positions.user','=',$userId]])->join('sys_usergroup_positions','sys_usergroup_positions.usergroup','sys_usergroup_privelege.usergroup')->join('sys_positions','sys_usergroup_positions.position','sys_positions.id')->get();
