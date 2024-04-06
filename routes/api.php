@@ -22,3 +22,5 @@ Route::get('/Messages/GetDialogues', [App\Http\Controllers\MessageController::cl
 Route::get('/Messages/GetDialogueMessages', [App\Http\Controllers\MessageController::class, 'GetDialogueMessages']);
 
 Route::get('/Wiki/Search',[App\Http\Controllers\WikiController::class , 'ArticleSearch']);
+
+Route::post('/Wiki/SaveArticle',[App\Http\Controllers\WikiController::class , 'SaveArticle']);

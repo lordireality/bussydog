@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 
 class WikiController extends Controller
@@ -28,12 +29,35 @@ class WikiController extends Controller
         if($article == null){
             return view('wiki.error')->with(['stacktrace'=>'Статья с идентификатором '.$articleid.' не найдена']);
         }
-        return view('wiki.editor')->with(['article'=>$article]);
+        $structure = DB::table('sys_wikistructure')->select('id','name','parent')->get();
+        return view('wiki.editor')->with(['article'=>$article,'structure'=>$structure]);
     }
     //API
     function SaveArticle(Request $request){
         //todo perm check
+        $inputData = $request->input();
+        $validRules = [
+            'id' => 'required',
+            'parent' => 'required',
+            'content' => 'required',
+            'name' => 'required'
+        ];
+        $validator = Validator::make($inputData,$validRules);
+        if(!$validator -> passes()){
+            return response() -> json(["status" => "422","message"=>$validator->messages()],422);
+        }
+        $exists = DB::table('sys_wikiarticle')->where([['id','=',$inputData['id']]]);
+        $parent = $inputData['parent'] == 'null' ? DB::raw('null')  : $inputData['parent'];
+        if($exists){
+            DB::table('sys_wikiarticle')->where([['id','=',$inputData['id']]])->update(['parent' => $parent,'content'=>$inputData['content'],'name'=>$inputData['name']]);
+            return response() -> json(["status" => "200","state"=>"update","message"=>"Статья сохранена","id"=>$inputData["id"]],200);
+        } else {
+            $newRowId = DB::table('sys_wikiarticle')->insertGetId(['parent' => $parent,'content'=>$inputData['content'],'name'=>$inputData['name']]);
+            return response() -> json(["status" => "200","state"=>"create","message"=>"Статья создана","id"=>$newRowId],200);
+        }
     }
+
+
 
     function GetAllStructure(Request $request){
         $structure = DB::table('sys_wikistructure')->select('id','name','parent',DB::Raw('false as isArticle'));
