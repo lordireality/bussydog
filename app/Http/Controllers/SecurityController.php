@@ -228,8 +228,9 @@ class SecurityController extends Controller
                 return 'notExists';
             }
             $user = DB::table('user')->where([['id','=',$id]])->first();
-           
-            return view('security.user')->with(['viewUser'=>$user]);
+            $positions = app('App\Http\Controllers\SecurityController')->GetUserPositions($id);
+            $usergroups = app('App\Http\Controllers\SecurityController')->GetUserGroups($id);
+            return view('security.user')->with(['viewUser'=>$user,'positions'=>$positions,'usergroups'=>$usergroups]);
         }
         
         function GetAllPositions(Request $request){
@@ -243,6 +244,15 @@ class SecurityController extends Controller
                 return null;
             }
             return DB::table('sys_positions')->where([['user','=',$id]])->get();
+        }
+
+        function GetUserGroups($id = null){
+            if($id == null){
+                return null;
+            }
+            $usergroups = DB::table('sys_usergroup')->select('sys_usergroup.id','sys_usergroup.name','sys_usergroup.description')->where([['sys_usergroup_user.user','=',$id]])->join('sys_usergroup_user','sys_usergroup_user.usergroup','sys_usergroup.id');
+            $usergroupspositions = DB::table('sys_usergroup')->select('sys_usergroup.id','sys_usergroup.name','sys_usergroup.description')->where([['sys_positions.user','=',$id]])->join('sys_usergroup_positions','sys_usergroup_positions.usergroup','sys_usergroup.id')->join('sys_positions','sys_positions.id','sys_usergroup_positions.position')->union($usergroups)->get();
+            return $usergroupspositions;
         }
 
         function GetCurrentUserPosition(Request $request){

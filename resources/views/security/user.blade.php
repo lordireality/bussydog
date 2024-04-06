@@ -8,7 +8,13 @@
 <div style="width:100%; text-align:left;">
     <img style="margin: 10px; border: 1px solid gray; border-radius: 128px; width:128px; height:128px; display:inline-block;" src="{{$viewUser->photoBase64 ?? '/content/images/default.png'}}">
     <div style="display:inline-block; vertical-align:top; padding: 10px;">
-        <h3>Должность: </h3>
+        <?php
+            $positionNames = [];
+            foreach($positions as $position){
+                array_push($positionNames,$position->name);
+            } 
+        ?>
+        <h3>Должность: {{implode(', ',$positionNames)}}</h3>
         <h3>Эл. почта: {{$viewUser->email}}</h3>
         <h3>Дата рождения: {{$viewUser->birthday ?? 'Информация не указана'}}</h3>
         <h3>В компании с: {{$viewUser->inCompanyFrom ?? 'Информация не указана'}}</h3>
@@ -18,5 +24,9 @@
     </div>
 </div>
 <div class="panel"><h1>Участие в группах</h1></div>
-
+<div style="text-align:left;">
+@foreach($usergroups as $usergroup)
+<h3 style="border-top:1px solid black;border-bottom:1px solid black;">{{$usergroup->name}} - <i>{{$usergroup->description}}</i></h3>
+@endforeach
+</div>
 @endsection
