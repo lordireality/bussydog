@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="{{ asset('/content/css/icon-pack.css') }}">
         <link rel="stylesheet" href="{{ asset('/content/css/'.$currentInterface->csssheetname.'.css') }}">
         <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogRest.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
     <body>

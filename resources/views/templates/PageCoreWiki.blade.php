@@ -70,6 +70,7 @@
         <link rel="stylesheet" href="{{ asset('/content/css/listree.min.css') }}"/>
         <script src="{{ asset('/content/js/listree.umd.min.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogRest.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
     <body>
