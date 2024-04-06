@@ -74,7 +74,10 @@ function Preview(){
     document.getElementById("previewArticle").hidden = !isPreview;
 }
 
+var articleViewAddr = '{{route('wiki-article',['articleid'=>122334455])}}'.replace("122334455", '%id%');
+
 function Save(){
+    
     try{
         var xhr = new XMLHttpRequest();
         xhr.open("POST", window.location.origin+'/api/Wiki/SaveArticle', true);
@@ -84,7 +87,13 @@ function Save(){
                 jsonData = xhr.responseText.replaceAll('/"','\\"');
                 var SaveData = JSON.parse(jsonData);  
                 if(SaveData["status"] == "200" ){
-                    location.reload();
+                    if(SaveData["state"]== "update"){
+                        location.reload();
+                    } else {
+                        document.location.href = articleViewAddr.replace('%id%',SaveData["id"]);
+                        
+                    }
+                    
                 } else {
                     try{
                         if(AuthData["message"] == "[object Object]"){

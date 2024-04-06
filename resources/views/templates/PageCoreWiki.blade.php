@@ -78,7 +78,7 @@
                 
                 <ul>
                     <li> <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Вернутся на портал</a></li>
-                    <li> <a class="button2" href="{{route('index')}}"><p class="icon-button pen"></p>Создать статью</a></li>
+                    <li> <a class="button2" href="{{route('wiki-article-create')}}"><p class="icon-button pen"></p>Создать статью</a></li>
                 </ul>
                 <div class="profile-info">
                     <table>

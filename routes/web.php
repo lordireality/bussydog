@@ -39,9 +39,11 @@ Route::get('/organization',[App\Http\Controllers\SecurityController::class,'Orga
 
 Route::get('/wiki',[App\Http\Controllers\WikiController::class,'Index'])->name('wiki');
 
-Route::get('/wiki-article/{articleid}',[App\Http\Controllers\WikiController::class,'ViewArticle'])->name('wiki-article');
+Route::get('/wiki-article/{articleid}/view',[App\Http\Controllers\WikiController::class,'ViewArticle'])->name('wiki-article');
 
 Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController::class,'EditArticle'])->name('wiki-article-edit');
+
+Route::get('/wiki-article/create',[App\Http\Controllers\WikiController::class,'CreateArticle'])->name('wiki-article-create');
 
 /*Дебаг Layout-a */
 Route::get('/TEST/layout',function () {

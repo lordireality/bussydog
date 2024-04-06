@@ -32,6 +32,19 @@ class WikiController extends Controller
         $structure = DB::table('sys_wikistructure')->select('id','name','parent')->get();
         return view('wiki.editor')->with(['article'=>$article,'structure'=>$structure]);
     }
+
+    function CreateArticle(Request $request){
+        //todo perm check
+        $article = (object)[
+            'id'=>0,
+            'name' => '',
+            'content' => '',
+            'parent'=>null
+        ];
+        $structure = DB::table('sys_wikistructure')->select('id','name','parent')->get();
+        return view('wiki.editor')->with(['article'=>$article,'structure'=>$structure]);
+    }
+
     //API
     function SaveArticle(Request $request){
         //todo perm check
@@ -46,13 +59,13 @@ class WikiController extends Controller
         if(!$validator -> passes()){
             return response() -> json(["status" => "422","message"=>$validator->messages()],422);
         }
-        $exists = DB::table('sys_wikiarticle')->where([['id','=',$inputData['id']]]);
+        $exists = DB::table('sys_wikiarticle')->where([['id','=',$inputData['id']]])->exists();
         $parent = $inputData['parent'] == 'null' ? DB::raw('null')  : $inputData['parent'];
-        if($exists){
+        if($exists == true){
             DB::table('sys_wikiarticle')->where([['id','=',$inputData['id']]])->update(['parent' => $parent,'content'=>$inputData['content'],'name'=>$inputData['name']]);
             return response() -> json(["status" => "200","state"=>"update","message"=>"Статья сохранена","id"=>$inputData["id"]],200);
         } else {
-            $newRowId = DB::table('sys_wikiarticle')->insertGetId(['parent' => $parent,'content'=>$inputData['content'],'name'=>$inputData['name']]);
+            $newRowId = DB::table('sys_wikiarticle')->insertGetId(['parent' => $parent,'content'=>$inputData['content'],'name'=>$inputData['name'],'isArchived'=>0]);
             return response() -> json(["status" => "200","state"=>"create","message"=>"Статья создана","id"=>$newRowId],200);
         }
     }

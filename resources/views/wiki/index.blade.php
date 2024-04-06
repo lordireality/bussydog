@@ -20,7 +20,7 @@
 
 
     function SearchArticle(query){
-        var articleViewAddr = '{{route('wiki-article',['articleid'=>122334455])}}'.replace("122334455", ''); //Костыль для построения роутинга
+        var articleViewAddr = '{{route('wiki-article',['articleid'=>122334455])}}'.replace("122334455", '%id%'); //Костыль для построения роутинга
         var placeholder = document.getElementById("searchResults");
         placeholder.innerHTML = null;
         
@@ -34,7 +34,7 @@
                     var resp = xhr.responseText;
                     var jsonOBJ = JSON.parse(resp);                  
                     for(var i in jsonOBJ){
-                        placeholder.innerHTML += '<a href="'+articleViewAddr+jsonOBJ[i].id+'"><h3 style="color:black;">'+jsonOBJ[i].name+'</h3></a><hr>'
+                        placeholder.innerHTML += '<a href="'+articleViewAddr.replace('%id%',jsonOBJ[i].id)+'"><h3 style="color:black;">'+jsonOBJ[i].name+'</h3></a><hr>'
                     }        
                 }
             }
