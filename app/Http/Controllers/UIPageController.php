@@ -16,7 +16,12 @@ class UIPageController extends Controller
         
         $isEdit = false;
         if($request->has("isEdit")){
-            $isEdit = (bool)$request->input()["isEdit"];
+            $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'widget-index-edit');
+            if($access == true){
+                $isEdit = (bool)$request->input()["isEdit"];
+            } else {
+               $isEdit = false;  
+            }
         } else {
             $isEdit = false;
         }

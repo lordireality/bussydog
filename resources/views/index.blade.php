@@ -29,5 +29,33 @@
     @if($isEdit == true)
     <a class="button2long" href="javascript:AddWidgetZone()">Добавить зону для виджета 50%</a>
     <a class="button2long" href="javascript:AddWidgetZone()">Добавить зону для виджета 100%</a>
+    <script>
+            function AddWidgetZone(){
+            var params = [];
+            var responseRaw = HTTPPost(window.location.origin+'/api/index/AddWidgetZone',params,false);
+            response = JSON.parse(responseRaw);
+            if(response.status == 200){
+                document.location.reload(true); 
+            } else {
+                console.log(response.message);
+            }
+        }
+
+        function RemoveWidgetZone(zoneNum){
+            let params = [
+            {
+                "key" : "num",
+                "value" : zoneNum
+            }
+            ];
+            var responseRaw = HTTPPost(window.location.origin+'/api/index/RemoveWidgetZone',params,false);
+            response = JSON.parse(responseRaw);
+            if(response.status == 200){
+                document.location.reload(true); 
+            } else {
+                console.log(response.message);
+            }
+        }
+    </script>
     @endif
 @endsection
