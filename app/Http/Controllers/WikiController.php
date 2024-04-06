@@ -11,6 +11,7 @@ class WikiController extends Controller
 {
     function Index(Request $request){
         //todo perm check
+        //CheckCurrentUserPrivelege($request, 'wiki-access');
         return view('wiki.index');
     }
 

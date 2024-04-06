@@ -55,6 +55,7 @@
     $articleStructure =  buildTree(json_decode(WikiController::GetAllStructure(app('request'))),null);
     $currentUser = SecurityController::GetCurrentUser(app('request'));
     $currentInterface = UIPageController::GetInterface($currentUser->interface);
+    
 @endphp
 <!doctype html>
 <html>
@@ -78,7 +79,9 @@
                 
                 <ul>
                     <li> <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Вернутся на портал</a></li>
+                    @if(SecurityController::CheckCurrentUserPrivelege(app('request'), 'wiki-editor') == true)
                     <li> <a class="button2" href="{{route('wiki-article-create')}}"><p class="icon-button pen"></p>Создать статью</a></li>
+                    @endif
                 </ul>
                 <div class="profile-info">
                     <table>
