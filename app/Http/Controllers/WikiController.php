@@ -10,13 +10,18 @@ use Validator;
 class WikiController extends Controller
 {
     function Index(Request $request){
-        //todo perm check
-        //CheckCurrentUserPrivelege($request, 'wiki-access');
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return view('security.noaccess');
+        } 
         return view('wiki.index');
     }
 
     function ViewArticle(int $articleid = 0,Request $request){
-        //todo perm check
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return view('security.noaccess');
+        } 
         $article = DB::table('sys_wikiarticle')->where([['id','=',$articleid]])->first();
         if($article == null){
             return view('wiki.error')->with(['stacktrace'=>'Статья с идентификатором '.$articleid.' не найдена']);
@@ -25,7 +30,10 @@ class WikiController extends Controller
     }
 
     function EditArticle(int $articleid = 0, Request $request){
-        //todo perm check
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-editor') && app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return view('security.noaccess');
+        } 
         $article = DB::table('sys_wikiarticle')->where([['id','=',$articleid]])->first();
         if($article == null){
             return view('wiki.error')->with(['stacktrace'=>'Статья с идентификатором '.$articleid.' не найдена']);
@@ -35,7 +43,10 @@ class WikiController extends Controller
     }
 
     function CreateArticle(Request $request){
-        //todo perm check
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-editor') && app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return view('security.noaccess');
+        } 
         $article = (object)[
             'id'=>0,
             'name' => '',
@@ -48,7 +59,10 @@ class WikiController extends Controller
 
     //API
     function SaveArticle(Request $request){
-        //todo perm check
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-editor') && app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return response() -> json(["status" => "403","message"=>"Недостаточно прав доступа!"],422);
+        } 
         $inputData = $request->input();
         $validRules = [
             'id' => 'required',
@@ -85,6 +99,10 @@ class WikiController extends Controller
         if($isAlive == false ){
             return [];
         }
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'wiki-access');
+        if($access == false){
+            return [];
+        } 
         
         return json_encode(DB::table('sys_wikiarticle')->select('id','name')->where([['name','like','%'.$request->get('query').'%']])->get());
 
