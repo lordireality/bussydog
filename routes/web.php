@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 /*Приветственная страница */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\UIPageController::class, 'LoadWelcomePage'])->name('welcome');
+
 /*страница с ошибками (пустая)*/
 Route::get('/error',function () {
     return view('error');
@@ -44,8 +43,3 @@ Route::get('/wiki-article/{articleid}/view',[App\Http\Controllers\WikiController
 Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController::class,'EditArticle'])->name('wiki-article-edit');
 
 Route::get('/wiki-article/create',[App\Http\Controllers\WikiController::class,'CreateArticle'])->name('wiki-article-create');
-
-/*Дебаг Layout-a */
-/*Route::get('/TEST/layout',function () {
-    return view('/templates/PageCoreWithoutAuth');
-})->name('layoutTest');*/

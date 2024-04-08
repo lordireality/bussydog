@@ -7,7 +7,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>{{$pagename}}|ESE-CRM</title>
+		<title>{{$pagename}}|BussyDog</title>
 		<link rel="icon" href="{{ asset('/ese/content/images/favicon.ico') }}" type="image/x-icon">
 		<meta name="description" content="BussyDog Leightweight OpenSource System"> 
 		<meta charset="utf-8">
