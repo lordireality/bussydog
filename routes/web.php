@@ -43,3 +43,5 @@ Route::get('/wiki-article/{articleid}/view',[App\Http\Controllers\WikiController
 Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController::class,'EditArticle'])->name('wiki-article-edit');
 
 Route::get('/wiki-article/create',[App\Http\Controllers\WikiController::class,'CreateArticle'])->name('wiki-article-create');
+
+Route::get('/entity/diagnostics',[App\Http\Controllers\EntityController::class,'DiagnosticsPage'])->name('diagnostics');

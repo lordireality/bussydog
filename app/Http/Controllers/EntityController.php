@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class EntityController extends Controller
 {
@@ -46,26 +48,30 @@ class EntityController extends Controller
 
     }
 
+    function DiagnosticsPage(Request $request){
+        $result = '';
+        $dbName = DB::connection()->getDatabaseName();
+        if($dbName){
+            $result = 'Connection estabilished with DB: '.$dbName;
+        } else {
+            $result = 'Cannot connect to database: '.$dbName;
+            return $result;
+        }
+        $allDBSet = DB::Select(DB::Raw('select column_name,table_name,DATA_TYPE from information_schema.columns where table_schema = \''.$dbName.'\' order by table_name,ordinal_position'));
+        $allTables = DB::Select(DB::Raw('SELECT TABLE_NAME FROM information_schema.tables where table_schema = \''.$dbName.'\''));
+        
+        foreach($allTables as $table){
+            $result .= '<p>Table: '.$table->TABLE_NAME.' - Found</p>';
+            foreach(array_keys(array_column($allDBSet,'table_name'),$table->TABLE_NAME) as $key){
+                $result .= '<p>Column: '.$table->TABLE_NAME.'.'.$allDBSet[$key]->column_name.' ('.$allDBSet[$key]->DATA_TYPE.') - Found</p>';
+            }
+            $result.='<hr>';
+        }
+        return $result;
+        //json_encode($allTables);
 
-}
 
-use Illuminate\Database\Eloquent\Model;
-
-class EntityMetadata extends Model{
-    protected $table = "sys_entitymetadata"; 
-
-    //id
-    //entityName
-    //entityTable
-    //
-    //tableMapping
-    /*
-    [
-    {
-        'key':'SysColumn',
-        'value':'VisibleName'
     }
-    ]
-    
-    */
+
+
 }
