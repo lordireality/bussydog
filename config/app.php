@@ -23,6 +23,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'entitydiagnostics' => env('APP_ENTITYDIAGNOSTICS', TRUE),
+
     'asset_url' => env('ASSET_URL', null),
 
     'timezone' => 'UTC',
