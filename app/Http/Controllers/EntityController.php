@@ -11,7 +11,8 @@ class EntityController extends Controller
 
     /*Получить все метаданные сущностей из таблицы sys_entitymetadata */
     function GetAllEntitiesMetadata(){
-        return EntityMetadata::all();
+        //return EntityMetadata::all();
+        //wtf this was working???
     }
 
     /*Получить список всех сущностей из таблицы sys_entitymetadata */
