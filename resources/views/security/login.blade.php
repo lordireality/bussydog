@@ -7,6 +7,7 @@
 		<meta charset="utf-8">
         <link rel="stylesheet" href="{{ asset('/content/css/mainstyle.css') }}">
         <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogRest.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
         
 	</head>
