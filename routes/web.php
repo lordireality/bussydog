@@ -38,6 +38,8 @@ Route::get('/organization',[App\Http\Controllers\SecurityController::class,'Orga
 
 Route::get('/wiki',[App\Http\Controllers\WikiController::class,'Index'])->name('wiki');
 
+Route::get('/wiki-structure/edit',[App\Http\Controllers\WikiController::class,'EditStructure'])->name('wiki-structure-edit');
+
 Route::get('/wiki-article/{articleid}/view',[App\Http\Controllers\WikiController::class,'ViewArticle'])->name('wiki-article');
 
 Route::get('/wiki-article/{articleid}/edit',[App\Http\Controllers\WikiController::class,'EditArticle'])->name('wiki-article-edit');

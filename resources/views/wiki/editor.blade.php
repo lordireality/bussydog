@@ -24,14 +24,18 @@
 
 
 @section('content')
-<div class="panel"><h1>Редактирование - <input type="text" id="name" style="width:25%; padding:10px;" value="{{$article->name}}"></h1>
-<a class="button2" href="javascript:Preview()">Предпросмотр</a>
-<a class="button2" href="javascript:Save()">Сохранить</a>
-
+<div class="panel"><h1>@if($article->id != 0)Редактирование@else Создание @endif - <input type="text" id="name" style="width:25%; padding:10px;" value="{{$article->name}}">
 <select id="structure" style="width:25%; padding:10px;">
     <option value="null">/Корень/</option>
     {!!buildOptionTree($structure,null,1,$article->parent)!!}
 </select>
+</h1>
+<a class="button2" href="javascript:Preview()">Предпросмотр</a>
+<a class="button2" href="javascript:Save()">Сохранить</a>
+@if($article->id != 0)
+<a class="button2" href="javascript:viewArticle()">Перейти к статье</a>
+@endif
+
 </div>
 <div id="editArticle" style="text-align:left">
     <div class="panel">
@@ -84,7 +88,6 @@ function Preview(){
 var articleViewAddr = '{{route('wiki-article',['articleid'=>122334455])}}'.replace("122334455", '%id%');
 
 function Save(){
-    
     try{
         var xhr = new XMLHttpRequest();
         xhr.open("POST", window.location.origin+'/api/Wiki/SaveArticle', true);
@@ -120,6 +123,9 @@ function Save(){
     catch(err) {
         document.location.href = window.location.origin+"/error?stacktrace="+err;
     }
+}
+function viewArticle(){
+    document.location.href = articleViewAddr.replace('%id%','{{$article->id}}');
 }
 
 </script>

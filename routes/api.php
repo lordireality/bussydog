@@ -24,6 +24,8 @@ Route::post('/Security/LogOut', [App\Http\Controllers\SecurityController::class,
 Route::get('/Wiki/Search',[App\Http\Controllers\WikiController::class , 'ArticleSearch']);
 
 Route::post('/Wiki/SaveArticle',[App\Http\Controllers\WikiController::class , 'SaveArticle']);
+Route::post('/Wiki/CreateStructure',[App\Http\Controllers\WikiController::class , 'CreateStructure']);
+Route::post('/Wiki/DeleteStructure',[App\Http\Controllers\WikiController::class , 'DeleteStructure']);
 
 
 Route::post('/Index/AddWidgetZone',[App\Http\Controllers\UIPageController::class , 'AddWidgetZone']);

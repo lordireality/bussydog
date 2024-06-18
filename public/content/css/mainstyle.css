@@ -262,6 +262,7 @@ img
 }
 .popup
 {
+	z-index: 101;
 	background-color: #fff;
 	border: 2px solid #000;
 	border-radius: 8px;
@@ -295,6 +296,8 @@ img
 }
 .popupBlocker
 {
+	z-index: 100; 
+	border: #000;
 	background-color: #000;
 	display: none;
 	height: 100%;

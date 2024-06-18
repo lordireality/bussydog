@@ -55,6 +55,9 @@
     $articleStructure =  buildTree(json_decode(WikiController::GetAllStructure(app('request'))),null);
     $currentUser = SecurityController::GetCurrentUser(app('request'));
     $currentInterface = UIPageController::GetInterface($currentUser->interface);
+    if(!isset($def_popups)){
+        $def_popups = [];
+    }
     
 @endphp
 <!doctype html>
@@ -69,11 +72,16 @@
         <link rel="stylesheet" href="{{ asset('/content/css/'.$currentInterface->csssheetname.'.css') }}">
         <link rel="stylesheet" href="{{ asset('/content/css/listree.min.css') }}"/>
         <script src="{{ asset('/content/js/listree.umd.min.js') }}"></script>
+        <script src="{{ asset('/content/js/BussyDogPopup.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDogSecurity.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDogRest.js') }}"></script>
         <script src="{{ asset('/content/js/BussyDog.js') }}"></script>
 	</head>
     <body>
+    @foreach($def_popups as $popup)
+        @include($popup)
+    @endforeach
+    <div class="popupBlocker" id="popupBlocker"></div>
         <header>
             <div class="menu">
                 <a href="{{route('index')}}" class="logo" style="margin:115px !important;"><img style="height:3em; width:3em; vertical-align:middle;" src="{{ asset('/content/images/eseapplogotransparent.png') }}"/></a>
@@ -82,6 +90,7 @@
                     <li> <a class="button2" href="{{route('index')}}"><p class="icon-button house"></p>Вернутся на портал</a></li>
                     @if(SecurityController::CheckCurrentUserPrivelege(app('request'), 'wiki-editor') == true)
                     <li> <a class="button2" href="{{route('wiki-article-create')}}"><p class="icon-button pen"></p>Создать статью</a></li>
+                    <li> <a class="button2" href="{{route('wiki-structure-edit')}}"><p class="icon-button folder-tree"></p>Редактировать структуру</a></li>                    
                     @endif
                 </ul>
                 <div class="profile-info">
