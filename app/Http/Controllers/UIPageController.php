@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Validator;
 
 class UIPageController extends Controller
 {
@@ -93,6 +94,54 @@ class UIPageController extends Controller
         }
         //Инсертим и отдаем ответ
         DB::table('sys_indexwidgets')->insert(["userId"=>$currentuserId,"num"=>$newWidgetZoneNum, "widgetSizeClass"=>$widgetSizeClass]);
-        return response() -> json(["status" => "200","message"=>"Zone added!"],200); 
+        return response() -> json(["status" => "200","message"=>"Widget zone added!"],200); 
     }
+
+    //Добавить зону виджета для пользователя
+    function RemoveWidgetZone(Request $request){
+        $currentuserId = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
+
+        /*кусок бесполезных проверок по аналогии с AddWidgetZone*/
+        if(is_null($currentuserId)){
+            return response() -> json(["status" => "401","message"=>"Не авторизован"],401);
+        }
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'widget-index-edit');
+        if($access == false){
+            return response() -> json(["status" => "403","message"=>"Отсутствует привелегия widget-index-edit"],403);
+        }
+
+        //Проверка Num'a
+        $inputData = $request->input();
+        $validRules = [
+            'num' => 'required|min:1|numeric'
+        ];
+        $validator = Validator::make($inputData,$validRules);
+        if(!$validator->passes()){
+            return response() -> json(["status" => "422","message"=>$validator->messages()],422); 
+        }
+        //Preload sql запроса
+        $widgetZoneRow = DB::table('sys_indexwidgets')->where([['userId','=',$currentuserId],['num','=', $inputData["num"]]]);
+        //проверяем существует ли строка
+        if(!$widgetZoneRow->exists()){
+            return response() -> json(["status" => "204","message"=>"Widget zone with num: ".$inputData["num"]." for user with id ".$currentuserId." not found"],204);
+        }
+        //Делаем Soft-delete, т.е. заменяем num на 0
+        $widgetZoneRow->update(['widgetId'=>null,'num'=>0]);
+        return response() -> json(["status" => "200","message"=>"Widget zone soft-deleted successfully!"],200);
+    }
+
+    function GetAllWidgets(Request $request){
+        $currentuserId = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
+        /*кусок бесполезных проверок по аналогии с AddWidgetZone*/
+        if(is_null($currentuserId)){
+            return [];
+        }
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'widget-index-edit');
+        if($access == false){
+            return [];
+        }
+
+    }
+
+
 }

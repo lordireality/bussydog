@@ -53,7 +53,7 @@
                 "value" : zoneNum
             }
             ];
-            var responseRaw = BussyDog.Rest.HTTPPost(window.location.origin+'/api/index/RemoveWidgetZone',params,false);
+            var responseRaw = BussyDog.Rest.HTTPPost(window.location.origin+'/api/Index/RemoveWidgetZone',params,false);
             response = JSON.parse(responseRaw);
             if(response.status == 200){
                 document.location.reload(true); 

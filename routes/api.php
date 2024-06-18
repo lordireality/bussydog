@@ -27,4 +27,7 @@ Route::post('/Wiki/SaveArticle',[App\Http\Controllers\WikiController::class , 'S
 
 
 Route::post('/Index/AddWidgetZone',[App\Http\Controllers\UIPageController::class , 'AddWidgetZone']);
+
+Route::post('/Index/RemoveWidgetZone',[App\Http\Controllers\UIPageController::class , 'RemoveWidgetZone']);
+
 //
