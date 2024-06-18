@@ -27,12 +27,17 @@
         @endforeach
     
     @if($isEdit == true)
-    <a class="button2long" href="javascript:AddWidgetZone()">Добавить зону для виджета 50%</a>
-    <a class="button2long" href="javascript:AddWidgetZone()">Добавить зону для виджета 100%</a>
+    <a class="button2long" href="javascript:AddWidgetZone('widget50')">Добавить зону для виджета 50%</a>
+    <a class="button2long" href="javascript:AddWidgetZone('widget100')">Добавить зону для виджета 100%</a>
     <script>
-            function AddWidgetZone(){
-            var params = [];
-            var responseRaw = HTTPPost(window.location.origin+'/api/index/AddWidgetZone',params,false);
+            function AddWidgetZone(widgetSizeClass){
+            let params = [
+            {
+                "key" : "widgetSizeClass",
+                "value" : widgetSizeClass
+            }
+            ];
+            var responseRaw = BussyDog.Rest.HTTPPost(window.location.origin+'/api/Index/AddWidgetZone',params,false);
             response = JSON.parse(responseRaw);
             if(response.status == 200){
                 document.location.reload(true); 
@@ -48,7 +53,7 @@
                 "value" : zoneNum
             }
             ];
-            var responseRaw = HTTPPost(window.location.origin+'/api/index/RemoveWidgetZone',params,false);
+            var responseRaw = BussyDog.Rest.HTTPPost(window.location.origin+'/api/index/RemoveWidgetZone',params,false);
             response = JSON.parse(responseRaw);
             if(response.status == 200){
                 document.location.reload(true); 

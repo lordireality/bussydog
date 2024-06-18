@@ -24,3 +24,7 @@ Route::post('/Security/LogOut', [App\Http\Controllers\SecurityController::class,
 Route::get('/Wiki/Search',[App\Http\Controllers\WikiController::class , 'ArticleSearch']);
 
 Route::post('/Wiki/SaveArticle',[App\Http\Controllers\WikiController::class , 'SaveArticle']);
+
+
+Route::post('/Index/AddWidgetZone',[App\Http\Controllers\UIPageController::class , 'AddWidgetZone']);
+//

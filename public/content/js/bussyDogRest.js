@@ -35,7 +35,7 @@ class BussyDogRest{
             }
         }
     
-        paramsString = "";
+        var paramsString = null;
         if(params.length>0){
             paramsString = params[0].key+"="+params[0].value;
             for(var i =1;i<params.length;i++){
