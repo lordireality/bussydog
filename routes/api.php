@@ -30,4 +30,9 @@ Route::post('/Index/AddWidgetZone',[App\Http\Controllers\UIPageController::class
 
 Route::post('/Index/RemoveWidgetZone',[App\Http\Controllers\UIPageController::class , 'RemoveWidgetZone']);
 
+Route::get('/Index/GetAllWidgets',[App\Http\Controllers\UIPageController::class , 'GetAllWidgets']);
+
+Route::post('/Index/SetWidgetToZone',[App\Http\Controllers\UIPageController::class , 'SetWidgetToZone']);
+
+
 //

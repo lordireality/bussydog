@@ -140,6 +140,38 @@ class UIPageController extends Controller
         if($access == false){
             return [];
         }
+        return DB::table('sys_uiwidget')->select('id','visiblename')->get();
+    }
+    function SetWidgetToZone(Request $request){
+        $currentuserId = app('App\Http\Controllers\SecurityController')->GetCurrentUserId($request);
+        if(is_null($currentuserId)){
+            return response() -> json(["status" => "401","message"=>"Не авторизован"],401);
+        }
+        $access = app('App\Http\Controllers\SecurityController')->CheckCurrentUserPrivelege($request, 'widget-index-edit');
+        if($access == false){
+            return response() -> json(["status" => "403","message"=>"Отсутствует привелегия widget-index-edit"],403);
+        }
+
+        $inputData = $request->input();
+        $validRules = [
+            'num' => 'required|min:1|numeric',
+            'widgetId' => 'required|min:1|numeric'
+        ];
+        if(!$validator->passes()){
+            return response() -> json(["status" => "422","message"=>$validator->messages()],422); 
+        }
+        
+        $widgetZoneRow = DB::table('sys_indexwidgets')->where([['userId','=',$currentuserId],['num','=', $inputData["num"]]]);
+        
+        if(!$widgetZoneRow->exists()){
+            return response() -> json(["status" => "204","message"=>"Widget zone with num: ".$inputData["num"]." for user with id ".$currentuserId." not found"],204);
+        }
+
+        if(!DB::table('sys_uiwidget')->where([['id','=',$inputData["widgetId"]]])->exists()){
+            response() -> json(["status" => "204","message"=>"Widget with id: ".$inputData["widgetId"]." not found"],204);
+        }
+        $widgetZoneRow->update(['widgetId'=>$inputData["widgetId"]]);
+        return response() -> json(["status" => "200","message"=>"Widget set to zone successfully!"],200);
 
     }
 
