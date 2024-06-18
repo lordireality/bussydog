@@ -38,7 +38,6 @@
         <h3>Редактор</h3>
     </div>
     <textarea id="editArticleSource" hidden>{!!$article->content!!}</textarea>
-    <div class="editor" id="articleEditor"></div>
 </div>
 <div id="previewArticle" hidden>
     <div class="panel">
@@ -49,16 +48,23 @@
     </div>
 </div>
 
-<script>var require = { paths: { 'vs': '{{ asset('/content/monaco-editor/min/vs/') }}' } };</script>
-<script src="{{ asset('/content/monaco-editor/min/vs/loader.js') }}"></script>
-<script src="{{ asset('/content/monaco-editor/min/vs/editor/editor.main.nls.js') }}"></script>
-<script src="{{ asset('/content/monaco-editor/min/vs/editor/editor.main.js') }}"></script>
-<link rel="stylesheet" data-name="vs/editor/editor.main" href="{{ asset('/content/monaco-editor/min/vs/editor/editor.main.css') }}">
+<script src=" {{ asset('/content/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
 <script>
-var viewEditor = monaco.editor.create(document.getElementById('articleEditor'), {
-    value: document.getElementById('editArticleSource').value,
-    language: 'php',
-    fontSize: 16
+tinymce.init({
+  selector: 'textarea#editArticleSource',
+  plugins: [
+    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+    'insertdatetime', 'media', 'table',
+  ],
+  toolbar: 'undo redo | blocks | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat | help',
+  height: 500,
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+  promotion: false,
+  language: 'ru'
 });
 
 var isPreview = false;
@@ -68,7 +74,8 @@ function Preview(){
     document.getElementById("previewPlaceholder").innerHTML = "";
     
     if(isPreview){
-        document.getElementById("previewPlaceholder").innerHTML = viewEditor.getValue();
+        document.getElementById("previewPlaceholder").innerHTML = tinymce.get("editArticleSource").getContent();
+
     } 
     document.getElementById("editArticle").hidden = isPreview;
     document.getElementById("previewArticle").hidden = !isPreview;
@@ -108,7 +115,7 @@ function Save(){
                 }
             }
         }
-        xhr.send("id={{$article->id}}&name="+document.getElementById('name').value+"&parent="+document.getElementById('structure').value+"&content="+viewEditor.getValue());
+        xhr.send("id={{$article->id}}&name="+document.getElementById('name').value+"&parent="+document.getElementById('structure').value+"&content="+tinymce.get("editArticleSource").getContent());
     }
     catch(err) {
         document.location.href = window.location.origin+"/error?stacktrace="+err;
